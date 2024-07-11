@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+
+<head th:replace="~{layout/plantilla :: head}">
+</head>
+
+<body>
+
+<section th:fragment="banner">
+	<style>
+		.banner-section {
+			background-image: url(https://scontent.fsyq3-1.fna.fbcdn.net/v/t39.30808-6/308752943_495044759295596_1021313220452656171_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=cc71e4&_nc_ohc=SrHb9k5xY0oQ7kNvgG_7b9l&_nc_ht=scontent.fsyq3-1.fna&oh=00_AYCoSSp9kgqdcuBxjBvHZzOJ8bCP2tKnbpBIUyOXwAXQMw&oe=6695112A);
+			background-size: cover;
+			background-position: top;
+			background-repeat: no-repeat;
+			height: 750px;
+			padding: 50px 0;
+		}
+		
+		.banner-content {
+			background-color: rgba(0, 0, 0, 0.5);
+			padding: 20px;
+			border-radius: 10px;
+		}
+	</style>
+	<div class="banner-section">
+		<div class="container-xl">
+				<div class="col-3 text-center banner-content"></div>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+<section th:fragment="mostrarCategorias">
+	
+	<div class="container mt-5">
+		<div class="row">
+			<div th:each="categoria, iterStat : ${categorias}" class="col-4 mb-4">
+				<div class="card" style="height: 100%">
+					<img th:src="${categoria.rutaImagen}" class="card-img-top categoria-img" style="object-fit: cover; height: 200px;" alt="Imagen de categoría">
+					<div class="card-body">
+						<h5 class="card-title text-center"><span th:text="${categoria.nombre}"></span></h5>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+
+
+</body>
+</html>
