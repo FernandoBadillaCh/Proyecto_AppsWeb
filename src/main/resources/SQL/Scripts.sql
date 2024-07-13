@@ -51,6 +51,47 @@ CREATE TABLE Reservas (
     FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario)
 );
 
+create table bebida (
+  id_bebida int NOT NULL AUTO_INCREMENT,
+  detalle varchar(30) ,
+  precio int ,
+  imagen varchar(1024) ,
+  activo bool,
+  PRIMARY KEY (id_bebida)
+  
+ )ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4;
+
+create table platofuerte (
+  id_platoFuerte int NOT NULL AUTO_INCREMENT,
+  detalle varchar(30) ,
+  precio int ,
+  imagen varchar(1024) ,
+  activo bool,
+  PRIMARY KEY (id_platoFuerte)
+  
+ )ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4;
+
+
+create table postre (
+  id_postre int NOT NULL AUTO_INCREMENT,
+  detalle varchar(30) ,
+  precio int ,
+  imagen varchar(1024) ,
+  activo bool,
+  PRIMARY KEY (id_postre)
+  
+ )ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4;
+
+create table entrada (
+  id_entrada int NOT NULL AUTO_INCREMENT,
+  detalle varchar(30) ,
+  precio int ,
+  imagen varchar(1024) ,
+  activo bool,
+  PRIMARY KEY (id_entrada)
+  
+ )ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4;
+
 DROP TABLE Roles;
 DROP TABLE Usuarios;
 DROP TABLE Categorias;
