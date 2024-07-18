@@ -92,11 +92,6 @@ create table entrada (
   
  )ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4;
 
-DROP TABLE Roles;
-DROP TABLE Usuarios;
-DROP TABLE Categorias;
-DROP TABLE Productos;
-DROP TABLE RESERVAS;
 
 DROP TABLE IF EXISTS Reservas;
 DROP TABLE IF EXISTS Productos;

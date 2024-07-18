@@ -9,91 +9,9 @@
 <body>
 
 <section th:fragment="banner">
-	<style>
-		.banner-section {
-			background-image: url(https://scontent.fsyq3-1.fna.fbcdn.net/v/t39.30808-6/308752943_495044759295596_1021313220452656171_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=cc71e4&_nc_ohc=SrHb9k5xY0oQ7kNvgG_7b9l&_nc_ht=scontent.fsyq3-1.fna&oh=00_AYCoSSp9kgqdcuBxjBvHZzOJ8bCP2tKnbpBIUyOXwAXQMw&oe=6695112A);
-			background-size: cover;
-			background-position: top;
-			background-repeat: no-repeat;
-			height: 750px;
-			padding: 50px 0;
-		}
-		
-		.banner-content {
-			background-color: rgba(0, 0, 0, 0.5);
-			padding: 20px;
-			border-radius: 10px;
-		}
-	</style>
-	<div class="banner-section">
+	<div style="background-image: url('https://scontent.fsyq3-1.fna.fbcdn.net/v/t39.30808-6/308752943_495044759295596_1021313220452656171_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=cc71e4&_nc_ohc=SrHb9k5xY0oQ7kNvgG_7b9l&_nc_ht=scontent.fsyq3-1.fna&oh=00_AYCoSSp9kgqdcuBxjBvHZzOJ8bCP2tKnbpBIUyOXwAXQMw&oe=6695112A'); background-size: cover; background-position: top; background-repeat: no-repeat; height: 750px; padding: 50px 0;">
 		<div class="container-xl">
-				<div class="col-3 text-center banner-content"></div>
-			</div>
-		</div>
-	</div>
-</section>
-
-
-<section th:fragment="mostrarCategorias">
-	<div class="container pt-5">
-		<h2 class="text-center mb-5 text-black bold">[[#{fragmentoindex.tituloCategoria}]]</h2>
-	</div>
-	<div class="container mt-5">
-		<div class="row">
-			<div th:each="categoria, iterStat : ${categorias}" class="col-4 mb-4">
-				<div class="card" style="height: 100%">
-					<img th:src="${categoria.rutaImagen}" class="card-img-top categoria-img" style="object-fit: cover; height: 200px;" alt="Imagen de categoría">
-					<div class="card-body">
-						<h5 class="card-title text-center"><span th:text="${categoria.nombre}"></span></h5>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
-
-<section th:fragment="mostrarCarruselProductos">
-	<div class="container pt-5">
-		<h2 class="text-center mb-5 text-black bold">Productos Destacados</h2>
-	</div>
-	<div class="container mt-5">
-		<div id="carouselProductos" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
-			<div class="carousel-inner">
-				<div th:each="producto, iterStat : ${productos}" class="carousel-item" th:classappend="${iterStat.index == 0} ? 'active'">
-					<img th:src="${producto.rutaImagen}" class="d-block w-100" style="object-fit: cover; height: 500px;" alt="Imagen de producto">
-					<div class="carousel-caption d-flex flex-column justify-content-center align-items-center bg-dark bg-opacity-50 text-white">
-						<h5 class="text-white" th:text="${producto.nombre}"></h5>
-						<p class="text-white" th:text="${producto.descripcion}"></p>
-					</div>
-				</div>
-			</div>
-			<button class="carousel-control-prev" type="button" data-bs-target="#carouselProductos" data-bs-slide="prev">
-				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-				<span class="visually-hidden">Anterior</span>
-			</button>
-			<button class="carousel-control-next" type="button" data-bs-target="#carouselProductos" data-bs-slide="next">
-				<span class="carousel-control-next-icon" aria-hidden="true"></span>
-				<span class="visually-hidden">Siguiente</span>
-			</button>
-		</div>
-	</div>
-</section>
-
-
-
-<section th:fragment="mostrarMapa">
-	<div class="container mt-5">
-		<div class="row justify-content-center">
-			<div class="col-md-10 d-flex justify-content-center">
-				<iframe
-						src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3930.0089124881333!2d-84.03758522414456!3d9.933215174178672!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa0e3f47ea4ff37%3A0x7a7818a6a9e5c90c!2sUniversidad%20Fid%C3%A9litas!5e0!3m2!1ses!2scr!4v1720671167449!5m2!1ses!2scr"
-						width="500px"
-						height="350px"
-						style="border:0;"
-						allowfullscreen=""
-						loading="lazy"
-						referrerpolicy="no-referrer-when-downgrade"
-				class="border-1"></iframe>
+			<div class="col-3 text-center" style="background-color: rgba(0, 0, 0, 0.5); padding: 20px; border-radius: 10px;">
 			</div>
 		</div>
 	</div>
@@ -112,8 +30,86 @@
 	</div>
 </section>
 
+<section th:fragment="mostrarCarruselProductos">
+	<div class="container pt-5">
+		<h2 class="text-center mb-5 text-black bold">[[#{fragmentoindex.productosDestacados}]]</h2>
+	</div>
+	<div class="container mt-5">
+		<div id="carouselProductos" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+			<div class="carousel-inner">
+				<div class="carousel-inner">
+					<div th:each="producto, iterStat : ${productos}" class="carousel-item" th:classappend="${iterStat.index == 0} ? 'active'">
+						<img th:src="${producto.rutaImagen}" class="d-block w-100" style="object-fit: cover; height: 500px;" alt="Imagen de producto">
+						<div class="carousel-caption d-flex flex-column justify-content-end align-items-center p-0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+							<a href="#" class="btn bg-dark bg-opacity-75 text-white w-50 h-20 d-flex flex-column justify-content-end align-items-center mb-4" style="text-decoration: none;">
+								<h5 class="text-white" th:text="${producto.nombre}"></h5>
+								<p class="text-white" th:text="${producto.descripcion}"></p>
+							</a>
+						</div>
+					</div>
+				</div>
+			
+			</div>
+			<button class="carousel-control-prev" type="button" data-bs-target="#carouselProductos" data-bs-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Anterior</span>
+			</button>
+			<button class="carousel-control-next" type="button" data-bs-target="#carouselProductos" data-bs-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Siguiente</span>
+			</button>
+		</div>
+	</div>
+</section>
+
+<section th:fragment="mostrarCategorias">
+	<div class="container pt-5">
+		<h2 class="text-center mb-5 text-black bold">[[#{fragmentoindex.tituloCategoria}]]</h2>
+	</div>
+	<div class="container mt-5">
+		<div class="row">
+			<div th:each="categoria, iterStat : ${categorias}" class="col-4 mb-4">
+				<a th:href="@{/categoria/lista/{idCategoria}(idCategoria=${categoria.idCategoria})}" class="text-decoration-none">
+					<div class="card h-100">
+						<img th:src="${categoria.rutaImagen}" class="card-img-top categoria-img" style="object-fit: cover; height: 200px;" alt="Imagen de categoría">
+						<div class="card-body">
+							<h5 class="card-title text-center text-dark"><span th:text="${categoria.nombre}"></span></h5>
+						</div>
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+</section>
 
 
+<section th:fragment="mostrarMapa">
+	
+	<div class="container mt-5 ">
+		<div class="row justify-content-center">
+			<div class="col-md-5 d-flex justify-content-center">
+				<iframe
+						src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3930.0089124881333!2d-84.03758522414456!3d9.933215174178672!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa0e3f47ea4ff37%3A0x7a7818a6a9e5c90c!2sUniversidad%20Fid%C3%A9litas!5e0!3m2!1ses!2scr!4v1720671167449!5m2!1ses!2scr"
+						width="100%"
+						height="350px"
+						style="border: 3px solid #000000;"
+						allowfullscreen=""
+						loading="lazy"
+						referrerpolicy="no-referrer-when-downgrade"></iframe>
+			</div>
+			<div class="col-md-7 d-flex flex-column justify-content-center">
+				<h2 class="text-center text-black mb-5">[[#{fragmentoindex.tituloMapa}]]</h2>
+				<p class="text-center mb-5">
+					[[#{fragmentoindex.parrafoMapa}]]
+				</p>
+				<div class="text-center ">
+					<a href="#" class="btn btn-primary m-2">[[#{fragmentoindex.botonReservacion}]]</a>
+					<a href="#" class="btn btn-primary m-2">[[#{fragmentoindex.botonContacto}]]</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
 
 
 </body>
