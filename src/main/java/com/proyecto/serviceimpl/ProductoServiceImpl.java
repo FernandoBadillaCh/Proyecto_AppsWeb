@@ -25,5 +25,16 @@ public class ProductoServiceImpl implements ProductoService {
 		return productoDao.findByCategoriaIdCategoria(categoria.getIdCategoria());
 	}
 
+	@Override
+	public Producto getProducto(Long idProducto) {
+		return productoDao.findById(idProducto).orElse(null);
+	}
+
+	@Override
+	public Producto delete(Long idProducto) {
+		productoDao.deleteById(idProducto);
+		return null;
+	}
+
 
 }

@@ -31,17 +31,17 @@ public class ProductoController {
 		return "producto/listado";
 	}
 
-
-
-
-	@GetMapping("/lista/{idCategoria}")
-	public String detalle(@PathVariable("idCategoria") Long idCategoria, Model model) {
-		var categoria = categoriaService.getCategoria(idCategoria);
-		var productos = productoService.getProductosCategoria(categoria);
-		model.addAttribute("categoria", categoria);
-		model.addAttribute("productos", productos);
-		return "/categoria/listado";
+	@GetMapping("/{idProducto}")
+	public String detalle(@PathVariable("idProducto") Long idProducto, Model model) {
+		var producto = productoService.getProducto(idProducto);
+		model.addAttribute("producto", producto);
+		return "/producto/detalle";
 	}
 
+	@GetMapping("/eliminar/{idProducto}")
+	public String productoEliminar(@PathVariable("idProducto") Long idProducto, Model model) {
+		productoService.delete(idProducto);
+		return "redirect:/producto/listado";
+	}
 
 }

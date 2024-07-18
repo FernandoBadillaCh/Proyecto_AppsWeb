@@ -41,7 +41,7 @@
 					<div th:each="producto, iterStat : ${productos}" class="carousel-item" th:classappend="${iterStat.index == 0} ? 'active'">
 						<img th:src="${producto.rutaImagen}" class="d-block w-100" style="object-fit: cover; height: 500px;" alt="Imagen de producto">
 						<div class="carousel-caption d-flex flex-column justify-content-end align-items-center p-0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
-							<a href="#" class="btn bg-dark bg-opacity-75 text-white w-50 h-20 d-flex flex-column justify-content-end align-items-center mb-4" style="text-decoration: none;">
+							<a th:href="@{/producto/{idProducto}(idProducto=${producto.idProducto})}" class="btn bg-dark bg-opacity-75 text-white w-50 h-20 d-flex flex-column justify-content-end align-items-center mb-4" style="text-decoration: none;">
 								<h5 class="text-white" th:text="${producto.nombre}"></h5>
 								<p class="text-white" th:text="${producto.descripcion}"></p>
 							</a>

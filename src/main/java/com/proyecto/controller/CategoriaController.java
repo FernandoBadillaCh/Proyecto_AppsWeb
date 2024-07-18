@@ -37,6 +37,4 @@ public class CategoriaController {
 		model.addAttribute("productos", productos);
 		return "/categoria/listado";
 	}
-
-
 }
