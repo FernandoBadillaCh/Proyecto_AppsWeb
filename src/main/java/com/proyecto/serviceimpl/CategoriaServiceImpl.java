@@ -20,4 +20,9 @@ public class CategoriaServiceImpl implements CategoriaService {
 	public List<Categoria> getCategorias() {
 		return categoriaDao.findAll();
 	}
+
+	@Override
+	public Categoria getCategoria(Long idCategoria) {
+		return categoriaDao.findById(idCategoria).orElse(null);
+	}
 }

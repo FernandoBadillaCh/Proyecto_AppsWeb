@@ -7,9 +7,9 @@ import java.io.Serializable;
 
 @Data
 @Entity
-@Table(name="Productos")
+@Table(name="productos")
 @NoArgsConstructor
-public class Producto implements Serializable{
+public class Producto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -17,9 +17,14 @@ public class Producto implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id_producto")
 	private Long idProducto;
+
 	private String nombre;
 	private String descripcion;
 	private double precio;
 	private String rutaImagen;
-	private Integer idCategoria;
+
+	@ManyToOne
+	@JoinColumn(name = "id_categoria")
+	private Categoria categoria;
+
 }
