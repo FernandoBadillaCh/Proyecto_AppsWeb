@@ -11,4 +11,10 @@ public interface ProductoService {
 	public List<Producto> getProductos();
 
 	public List<Producto> getProductosCategoria(Categoria categoria);
+
+	public Producto getProducto(Long idProducto);
+
+	public Producto delete(Long idProducto);
+
+	public void guardar(Producto producto);
 }

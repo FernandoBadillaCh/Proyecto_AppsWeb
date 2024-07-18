@@ -19,13 +19,68 @@
 			</div>
 			<div class="row">
 				<div th:each="producto : ${categoria.productos}" class="col-4 mb-4">
-					<div class="card h-100">
-						<img th:src="${producto.rutaImagen}" class="card-img-top producto-img" style="object-fit: cover; height: 200px;" alt="Imagen del producto">
-						<div class="card-body">
-							<h5 class="card-title text-center text-dark" th:text="${producto.nombre}"></h5>
-							<p class="card-text" th:text="${producto.descripcion}"></p>
-							<p class="card-text text-center text-primary" th:text="${producto.precio} + ' USD'"></p>
+					<a th:href="@{/producto/{idProducto}(idProducto=${producto.idProducto})}" class="text-decoration-none">
+						<div class="card h-100">
+							<img th:src="${producto.rutaImagen}" class="card-img-top producto-img" style="object-fit: cover; height: 270px;" alt="Imagen del producto">
+							<div class="card-body">
+								<h5 class="card-title text-center text-dark" th:text="${producto.nombre}"></h5>
+								<p class="card-text" th:text="${producto.descripcion}"></p>
+								<p class="card-text text-center text-primary" th:text="${producto.precio} + ' USD'"></p>
+							</div>
 						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section th:fragment="detalleProducto">
+	<div class="container pt-5">
+		<h2 class="text-center mb-5 text-black bold">Detalle del Producto</h2>
+		<div class="row">
+			<div class="col-md-5 me-2">
+				<img th:src="${producto.rutaImagen}" class="img-fluid border-3"  style="object-fit: cover; height: 300px;" alt="Imagen del producto">
+			</div>
+			<div class="col-md-6">
+				<h3 class="text-dark" th:text="${producto.nombre}"></h3>
+				<p class="text-muted" th:text="${producto.descripcion}"></p>
+				<p class="text-primary" th:text="${producto.precio} + ' '"></p>
+				
+				<div class="my-4">
+					<label for="quantity" class="form-label">Cantidad:</label>
+					<input type="number" id="quantity" name="quantity" value="1" min="1" class="form-control w-25">
+				</div>
+				
+				<div class="my-4">
+					<button class="btn btn-primary btn-lg btn-block">Agregar al Carrito</button>
+					<button class="btn btn-success btn-lg btn-block">Comprar Ahora</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section th:fragment="listaProductosModificar">
+	<div class="container pt-5">
+		<h2 class="text-center mb-5 text-black bold">Listado de Productos</h2>
+	</div>
+	<div class="container mt-5">
+		<div th:each="categoria : ${categorias}">
+			<div class="bg-opacity-75 bg-black">
+				<h3 class="text-start text-white mb-4" th:text="${categoria.nombre}"></h3>
+			</div>
+			<div class="row">
+				<div th:each="producto : ${categoria.productos}" class="col-12 mb-4 d-flex align-items-center">
+					<img th:src="${producto.rutaImagen}" class="img-thumbnail mr-3 col-3" style="width: 300px; height: 250px; object-fit: cover;" alt="Imagen del producto">
+					<div class="ms-5 flex-grow-1 col-5">
+						<h5 class="text-dark" th:text="${producto.nombre}"></h5>
+						<p th:text="${producto.descripcion}"></p>
+						<p class="text-primary" th:text="${producto.precio} + ' USD'"></p>
+					</div>
+					<div class="ml-3 align-content-end">
+						<a th:href="@{/producto/modificar/{idProducto}(idProducto=${producto.idProducto})}" class="btn btn-warning btn-sm">Modificar</a>
+						<a th:href="@{/producto/eliminar/{idProducto}(idProducto=${producto.idProducto})}" class="btn btn-danger btn-sm">Eliminar</a>
 					</div>
 				</div>
 			</div>
@@ -33,6 +88,82 @@
 	</div>
 </section>
 
+<section th:fragment="botonProductoModifica" class="py-4 mb-4">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-3">
+				<a th:href="@{/producto/administrarproductos}" class="btn btn-success btn-block">
+					<i class="fas fa-plus"></i> [[#{producto.administrar}]]
+				</a>
+			</div>
+		</div>
+	</div>
+</section>
 
+<section th:fragment="botonProductoAgregar" class="py-4 mb-4">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-3">
+				<button
+						type="button"
+						class="btn btn-success btn-block"
+						data-bs-toggle="modal"
+						data-bs-target="#agregarProducto">
+					<i class="fas fa-plus"></i> [[#{producto.agregar}]]
+				</button>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section th:fragment="agregarProducto">
+	<div id="agregarProducto"
+	     class="modal fade"
+	     tabindex="-1"
+	     aria-labelledby="exampleModalLabel"
+	     aria-hidden="true">
+		<div class="modal-dialog modal-md">
+			<div class="modal-content">
+				<div class="modal-header bg-success text-white">
+					<h5 class="modal-title">[[#{producto.agregar}]]</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<form th:action="@{/producto/guardar}" th:object="${producto}" method="POST" class="was-validated" enctype="multipart/form-data">
+					<input type="hidden" name="nuevaImagen" value="NO"/>
+					<div class="modal-body">
+						<div class="mb-3">
+							<label for="idCategoria">[[#{producto.categoria}]]</label>
+							<select name="categoria.idCategoria" class="form-select" aria-label="Default select example">
+								<option th:each="categoria : ${categorias}" th:value="${categoria.idCategoria}" th:text="${categoria.nombre}">
+								</option>
+							</select>
+						</div>
+						<div class="mb-3">
+							<label for="nombre">[[#{producto.nombre}]]</label>
+							<input type="text" class="form-control" name="nombre" required="true"/>
+						</div>
+						<div class="mb-3">
+							<label for="descripcion">[[#{producto.descripcion}]]</label>
+							<input type="text" class="form-control" name="descripcion" required="true"/>
+						</div>
+						<div class="mb-3">
+							<label for="precio">[[#{producto.precio}]]</label>
+							<input type="number" class="form-control" name="precio" required="true"/>
+						</div>
+						<div class="mb-3">
+							<label for="rutaImagen">[[#{producto.imagen}]]</label>
+							<input class="form-control" type="file" name="imagenFile" onchange="readURL(this);">
+							<img id="blah" src="#" alt="your image" height="200"/>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-primary" type="submit">[[#{producto.guardarFormulario}]]</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+</section>
 </body>
 </html>

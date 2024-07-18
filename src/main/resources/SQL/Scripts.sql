@@ -116,3 +116,7 @@ VALUES ('Producto 1', 'Descripción del Producto 1', 19.99, 1, 'https://cdn7.kiw
        ('Producto 5', 'Descripción del Producto 5', 12.75, 2, 'https://firebasestorage.googleapis.com/v0/b/proyectoappsweb-1ca6f.appspot.com/o/banner2.jpg?alt=media&token=2c2b830c-fd42-4d30-8f7b-990190468107'),
        ('Producto 6', 'Descripción del Producto 6', 18.00, 3, 'https://hips.hearstapps.com/hmg-prod/images/salmon-con-trigueros-y-judias-1562929760.jpg?crop=1.00xw:0.335xh;0,0.377xh&resize=1200:*'),
        ('Producto 7', 'Descripción del Producto 7', 22.50, 1, 'https://hips.hearstapps.com/hmg-prod/images/salmon-con-trigueros-y-judias-1562929760.jpg?crop=1.00xw:0.335xh;0,0.377xh&resize=1200:*');
+
+ALTER TABLE Categorias MODIFY ruta_imagen VARCHAR(1024);
+
+ALTER TABLE Productos MODIFY ruta_imagen VARCHAR(1024);
