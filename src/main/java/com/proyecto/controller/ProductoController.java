@@ -60,18 +60,20 @@ public class ProductoController {
 	}
 
 	@PostMapping("/guardar")
-	public String categoriaGuardar(Producto producto,
+	public String productoGuardar(Producto producto,
 	                               @RequestParam("imagenFile") MultipartFile imagenFile) {
 		if (!imagenFile.isEmpty()) {
 			productoService.guardar(producto);
 			producto.setRutaImagen(
 					firebaseStorageService.cargaImagen(
 							imagenFile,
-							"categoria",
+							"producto",
 							producto.getIdProducto()));
 		}
 		productoService.guardar(producto);
 		return "redirect:/producto/administrarproductos";
 	}
+
+
 
 }

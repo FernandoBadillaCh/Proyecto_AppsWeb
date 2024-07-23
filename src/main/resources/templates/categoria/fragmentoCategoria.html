@@ -32,7 +32,144 @@
 	</div>
 </section>
 
+<section th:fragment="mostrarCategorias">
+	<div class="container pt-5">
+		<h2 class="text-center mb-5 text-black bold">[[#{categoria.tituloCategoria}]]</h2>
+	</div>
+	<div class="container mt-5">
+		<div class="row">
+			<div th:each="categoria, iterStat : ${categorias}" class="col-4 mb-4">
+				<a th:href="@{/categoria/lista/{idCategoria}(idCategoria=${categoria.idCategoria})}" class="text-decoration-none">
+					<div class="card h-100">
+						<img th:src="${categoria.rutaImagen}" class="card-img-top categoria-img" style="object-fit: cover; height: 200px;" alt="Imagen de categoría">
+						<div class="card-body">
+							<h5 class="card-title text-center text-dark"><span th:text="${categoria.nombre}"></span></h5>
+						</div>
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+</section>
 
+
+<section th:fragment="mostrarCategoriaModifica">
+	<div class="container pt-5">
+		<h2 class="text-center mb-5 text-black bold">[[#{categoria.tituloCategoria}]]</h2>
+	</div>
+	<div class="container mt-5">
+		<div class="row">
+			<div th:each="categoria : ${categorias}" class="col-12 mb-4 d-flex align-items-center">
+				<img th:src="${categoria.rutaImagen}" class="img-thumbnail mr-3 col-3" style="width: 300px; height: 250px; object-fit: cover;" alt="Imagen de categoría">
+				<div class="ms-3 flex-grow-1">
+					<h5 class="text-dark" th:text="${categoria.nombre}"></h5>
+				</div>
+				<div class="ml-3">
+					<!-- Botón para abrir el modal -->
+					<button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
+					        th:data-bs-target="'#editarCategoriaModal-' + ${categoria.idCategoria}">[[#{boton.modificar}]]</button>
+					<a th:href="@{/categoria/eliminar/{idCategoria}(idCategoria=${categoria.idCategoria})}" class="btn btn-danger btn-sm">[[#{boton.eliminar}]]</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div th:each="categoria : ${categorias}" class="modal fade"
+	     th:id="'editarCategoriaModal-' + ${categoria.idCategoria}" tabindex="-1"
+	     aria-labelledby="editarCategoriaModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-md">
+			<div class="modal-content">
+				<div class="modal-header bg-success text-white">
+					<h5 class="modal-title" id="editarCategoriaModalLabel">[[#{categoria.editar}]]</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<form th:action="@{/categoria/guardar}" method="POST" class="was-validated" enctype="multipart/form-data">
+					<input type="hidden" name="idCategoria" th:value="${categoria.idCategoria}"/>
+					<input type="hidden" name="rutaImagen" th:value="${categoria.rutaImagen}"/>
+					<div class="modal-body">
+						<div class="mb-3">
+							<label for="nombre">[[#{categoria.nombre}]]</label>
+							<input type="text" class="form-control" id="nombre" name="nombre" th:value="${categoria.nombre}" required="true"/>
+						</div>
+						<div class="mb-3">
+							<label for="imagenFile">[[#{categoria.imagen}]]</label>
+							<input class="form-control" type="file" id="imagenFile" name="imagenFile"/>
+							<img id="blah" th:src="${categoria.rutaImagen}" alt="Previsualización de imagen" height="200" class="mt-4"/>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-success">[[#{categoria.guardar}]]</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+
+
+
+<section th:fragment="botonCategoriaModifica" class="py-4 mb-4">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-3">
+				<a th:href="@{/categoria/administrarcategorias}" class="btn btn-success btn-block">
+					<i class="fas fa-plus"></i> [[#{categoria.administrar}]]
+				</a>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section th:fragment="botonCategoriaAgregar" class="py-4 mb-4">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-3">
+				<button
+						type="button"
+						class="btn btn-success btn-block"
+						data-bs-toggle="modal"
+						data-bs-target="#agregarCategoria">
+					<i class="fas fa-plus"></i> [[#{categoria.agregar}]]
+				</button>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section th:fragment="agregarCategoria">
+	<div id="agregarCategoria"
+	     class="modal fade"
+	     tabindex="-1"
+	     aria-labelledby="exampleModalLabel"
+	     aria-hidden="true">
+		<div class="modal-dialog modal-md">
+			<div class="modal-content">
+				<div class="modal-header bg-success text-white">
+					<h5 class="modal-title">[[#{categoria.agregar}]]</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<form th:action="@{/categoria/guardar}" th:object="${categoria}" method="POST" class="was-validated" enctype="multipart/form-data">
+					<div class="modal-body">
+						<div class="mb-3">
+							<label for="nombre">[[#{categoria.nombre}]]</label>
+							<input type="text" class="form-control" name="nombre" required="true"/>
+						</div>
+						<div class="mb-3">
+							<label for="rutaImagen">[[#{categoria.imagen}]]</label>
+							<input class="form-control" type="file" name="imagenFile" onchange="readURL(this);">
+							<img id="blah" src="#" alt="your image" height="200" style="display: none;"/>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-primary" type="submit">[[#{categoria.guardar}]]</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</section>
 
 </body>
 </html>

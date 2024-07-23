@@ -10,6 +10,7 @@
 	<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
 	<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
 	<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+	
 </head>
 
 <body>
@@ -20,8 +21,9 @@
 			<nav class="col-3 d-flex flex-column align-items-center mt-5 mt-md-0 flex-md-row justify-content-md-end">
 				<a class="d-block px-2 py-1 fs-6 fw-bold text-uppercase text-black text-decoration-none" href="#">[[#{plantilla.nosotros}]]</a>
 				<a class="d-block px-2 py-1 fs-6 fw-bold text-uppercase text-black text-decoration-none" th:href="@{/producto/listado}">[[#{plantilla.productos}]]</a>
+				<a class="d-block px-2 py-1 fs-6 fw-bold text-uppercase text-black text-decoration-none" th:href="@{/categoria/listado}">[[#{plantilla.categorias}]]</a>
 				<a class="d-block px-2 py-1 fs-6 fw-bold text-uppercase text-black text-decoration-none" href="#">[[#{plantilla.reservaciones}]]</a>
-				<a class="d-block px-2 py-1 fs-6 fw-bold text-uppercase text-black text-decoration-none" href="#">[[#{plantilla.contacto}]]</a>
+
 			</nav>
 			<div class="col-6 d-flex justify-content-center align-items-center">
 				<a th:href="@{/}">
