@@ -79,14 +79,64 @@
 						<p class="text-primary" th:text="${producto.precio} + ' USD'"></p>
 					</div>
 					<div class="ml-3 align-content-end">
-						<a th:href="@{/producto/modificar/{idProducto}(idProducto=${producto.idProducto})}" class="btn btn-warning btn-sm">Modificar</a>
+						<button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
+						        th:data-bs-target="'#editarProductoModal-' + ${producto.idProducto}">[[#{boton.modificar}]]</button>
 						<a th:href="@{/producto/eliminar/{idProducto}(idProducto=${producto.idProducto})}" class="btn btn-danger btn-sm">Eliminar</a>
+					</div>
+				</div>
+			</div>
+			<!-- Modal Definition moved inside the 'each' context -->
+			<div th:each="producto : ${categoria.productos}" class="modal fade"
+			     th:id="'editarProductoModal-' + ${producto.idProducto}" tabindex="-1"
+			     aria-labelledby="editarProductoModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-md">
+					<div class="modal-content">
+						<div class="modal-header bg-success text-white">
+							<h5 class="modal-title" id="editarProductoModalLabel">[[#{producto.editar}]]</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<form th:action="@{/producto/guardar}" method="POST" class="was-validated" enctype="multipart/form-data">
+							<input type="hidden" name="idProducto" th:value="${producto.idProducto}"/>
+							<input type="hidden" name="rutaImagen" th:value="${producto.rutaImagen}"/>
+							<div class="modal-body">
+								<div class="mb-3">
+									<label for="categoria">[[#{producto.categoria}]]</label>
+									<select class="form-select" id="categoria" name="categoria.idCategoria" required="true">
+										<option th:each="cat : ${categorias}"
+										        th:value="${cat.idCategoria}"
+										        th:text="${cat.nombre}"
+										        th:selected="${cat.idCategoria == producto.categoria.idCategoria}"></option>
+									</select>
+								</div>
+								<div class="mb-3">
+									<label for="nombre">[[#{producto.nombre}]]</label>
+									<input type="text" class="form-control" id="nombre" name="nombre" th:value="${producto.nombre}" required="true"/>
+								</div>
+								<div class="mb-3">
+									<label for="descripcion">[[#{producto.descripcion}]]</label>
+									<textarea class="form-control" id="descripcion" name="descripcion" rows="3" required="true" th:text="${producto.descripcion}"></textarea>
+								</div>
+								<div class="mb-3">
+									<label for="precio">[[#{producto.precio}]]</label>
+									<input type="number" class="form-control" id="precio" name="precio" step="0.01" th:value="${producto.precio}" required="true"/>
+								</div>
+								<div class="mb-3">
+									<label for="imagenFile">[[#{producto.imagen}]]</label>
+									<input class="form-control" type="file" id="imagenFile" name="imagenFile"/>
+									<img id="blah" th:src="${producto.rutaImagen}" alt="Previsualización de imagen" height="200" class="mt-4"/>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="submit" class="btn btn-success">[[#{producto.guardar}]]</button>
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </section>
+
 
 <section th:fragment="botonProductoModifica" class="py-4 mb-4">
 	<div class="container">
