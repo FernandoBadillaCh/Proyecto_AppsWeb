@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ProductoService {
 
-	public List<Producto> getProductos(boolean activos);
+	public List<Producto> getProductos();
 
 	public List<Producto> getProductosCategoria(Categoria categoria);
 
@@ -17,6 +17,4 @@ public interface ProductoService {
 	public Producto delete(Long idProducto);
 
 	public void guardar(Producto producto);
-        
-        public List<Producto> findByPrecioBetweenOrderByDescripcion(double precioInf, double precioSup);
 }

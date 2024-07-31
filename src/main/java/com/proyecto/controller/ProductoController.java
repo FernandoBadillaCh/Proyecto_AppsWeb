@@ -26,7 +26,7 @@ public class ProductoController {
 
 	@GetMapping("/listado")
 	public String inicio(Model model) {
-		var categorias = categoriaService.getCategorias(false);
+		var categorias = categoriaService.getCategorias();
 		categorias.forEach(categoria -> {
 			var productos = productoService.getProductosCategoria(categoria);
 			categoria.setProductos(productos);
@@ -50,7 +50,7 @@ public class ProductoController {
 
 	@GetMapping("/administrarproductos")
 	public String productoNuevo(Model model) {
-		var categorias = categoriaService.getCategorias(false);
+		var categorias = categoriaService.getCategorias();
 		categorias.forEach(categoria -> {
 			var productos = productoService.getProductosCategoria(categoria);
 			categoria.setProductos(productos);

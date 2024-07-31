@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface CategoriaService {
 
-	public List<Categoria> getCategorias(boolean activos);
+	public List<Categoria> getCategorias();
 
-	public Categoria getCategoria(Categoria idCategoria);
+	public Categoria getCategoria(Long idCategoria);
 
-	public void delete(Categoria idProducto);
+	public Categoria delete(Long idProducto);
 
 	public void guardar(Categoria categoria);
 }

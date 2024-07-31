@@ -27,13 +27,13 @@ public class CategoriaController {
 
 	@GetMapping("/listado")
 	public String inicio(Model model) {
-		var categorias = categoriaService.getCategorias(false);
+		var categorias = categoriaService.getCategorias();
 		model.addAttribute("categorias", categorias);
 		return "categoria/listadocategorias";
 	}
 
 	@GetMapping("/lista/{idCategoria}")
-	public String detalle(@PathVariable("idCategoria") Categoria idCategoria, Model model) {
+	public String detalle(@PathVariable("idCategoria") Long idCategoria, Model model) {
 		var categoria = categoriaService.getCategoria(idCategoria);
 		var productos = productoService.getProductosCategoria(categoria);
 		model.addAttribute("categoria", categoria);
@@ -43,7 +43,7 @@ public class CategoriaController {
 
 	@GetMapping("/administrarcategorias")
 	public String categoriaNueva(Model model) {
-		var categorias = categoriaService.getCategorias(false);
+		var categorias = categoriaService.getCategorias();
 		model.addAttribute("categorias", categorias);
 		return "categoria/modifica";
 	}
@@ -65,7 +65,7 @@ public class CategoriaController {
 
 
 	@GetMapping("/eliminar/{idCategoria}")
-	public String categoriaEliminar(@PathVariable("idCategoria") Categoria idCategoria, Model model) {
+	public String categoriaEliminar(@PathVariable("idCategoria") Long idCategoria, Model model) {
 		categoriaService.delete(idCategoria);
 		return "redirect:/categoria/administrarcategorias";
 	}
