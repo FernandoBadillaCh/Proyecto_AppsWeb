@@ -21,7 +21,13 @@ public class Categoria implements Serializable {
 
 	private String nombre;
 	private String rutaImagen;
+        private boolean activo;
 
 	@OneToMany(mappedBy = "categoria")
 	private List<Producto> productos;
+
+
+        
+        
+        
 }

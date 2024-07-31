@@ -20,8 +20,8 @@ public class indexController {
 
 	@GetMapping("/")
 	public String inicio(Model model) {
-		var categorias = categoriaService.getCategorias();
-		var productos = productoService.getProductos();
+		var categorias = categoriaService.getCategorias(false);
+		var productos = productoService.getProductos(false);
 		model.addAttribute("categorias", categorias);
 		model.addAttribute("productos", productos);
 		return "index";

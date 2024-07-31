@@ -14,35 +14,45 @@ import java.util.List;
 @Service
 public class ProductoServiceImpl implements ProductoService {
 
-	@Autowired
-	private ProductoDao productoDao;
+    @Autowired
+    private ProductoDao productoDao;
 
-	@Override
-	public List<Producto> getProductos() {
-		return productoDao.findAll();
-	}
+    @Override
+    public List<Producto> getProductos(boolean activos) {
+        var lista=productoDao.findAll();
+        if (activos) {
+           lista.removeIf(e -> !e.isActivo());
+        }
+        return lista;
+    }
 
-	@Override
-	public List<Producto> getProductosCategoria(Categoria categoria) {
-		return productoDao.findByCategoriaIdCategoria(categoria.getIdCategoria());
-	}
+    @Override
+    public List<Producto> getProductosCategoria(Categoria categoria) {
+        return productoDao.findByCategoriaIdCategoria(categoria.getIdCategoria());
+    }
 
-	@Override
-	public Producto getProducto(Long idProducto) {
-		return productoDao.findById(idProducto).orElse(null);
-	}
+    @Override
+    public Producto getProducto(Long idProducto) {
+        return productoDao.findById(idProducto).orElse(null);
+    }
 
-	@Override
-	public Producto delete(Long idProducto) {
-		productoDao.deleteById(idProducto);
-		return null;
-	}
+    @Override
+    public Producto delete(Long idProducto) {
+        productoDao.deleteById(idProducto);
+        return null;
+    }
 
-	@Override
-	@Transactional
-	public void guardar(Producto producto) {
-		productoDao.save(producto);
-	}
+    @Override
+    @Transactional
+    public void guardar(Producto producto) {
+        productoDao.save(producto);
+    }
 
+    @Override
+    @Transactional(readOnly = true)
+    public List<Producto> findByPrecioBetweenOrderByDescripcion(double precioInf, double precioSup) {
+        return productoDao.findByPrecioBetweenOrderByDescripcion(precioInf, precioSup);
+
+    }
 
 }
