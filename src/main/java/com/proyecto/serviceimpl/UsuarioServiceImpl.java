@@ -2,11 +2,14 @@ package com.proyecto.serviceimpl;
 
 import com.proyecto.dao.CategoriaDao;
 import com.proyecto.dao.UsuarioDao;
+import com.proyecto.dao.UsuarioDaoPageable;
 import com.proyecto.domain.Categoria;
 import com.proyecto.domain.Usuario;
 import com.proyecto.service.CategoriaService;
 import com.proyecto.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +20,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	@Autowired
 	private UsuarioDao usuarioDao;
+
+	@Autowired
+	private UsuarioDaoPageable usuarioRepository;
 
 	@Override
 	@Transactional(readOnly=true)
@@ -40,5 +46,12 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Transactional
 	public void guardar(Usuario usuario) {
 		usuarioDao.save(usuario);
+	}
+
+
+	@Override
+	@Transactional(readOnly=true)
+	public Page<Usuario> getUsuarios(Pageable pageable) {
+		return usuarioRepository.findAll(pageable);
 	}
 }

@@ -8,6 +8,18 @@
 
 <body>
 
+<section th:fragment="botonUsuarioModifica" class="py-4 mb-4">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-3">
+				<a th:href="@{/administrarusuarios}" class="btn btn-success btn-block">
+					<i class="fas fa-plus"></i> [[#{usuario.administrar}]]
+				</a>
+			</div>
+		</div>
+	</div>
+</section>
+
 <section th:fragment="banner">
 	<div style="background-image: url('https://firebasestorage.googleapis.com/v0/b/proyectoappsweb-1ca6f.appspot.com/o/banner.jpg?alt=media&token=cc510677-d4d1-4b78-a70e-b07eb7432596'); background-size: cover; background-position: top; background-repeat: no-repeat; height: 750px; padding: 50px 0;">
 		<div class="container-xl">
