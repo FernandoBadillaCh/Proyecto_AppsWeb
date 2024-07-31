@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <body>
+        <!-- 1 Sección principal para mostrar la informaccion de las categorias -->
+        <section th:fragment="categoriasTabs" id="categorias">
+            <div class="row py-4">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link" 
+                           aria-current="page" 
+                           href="/pruebas/listado"
+                           >[[#{pruebas.todas}]]</a>
+                    </li>
+                    <li th:each="categoria : ${categorias}" class="nav-item">
+                        <a class="nav-link" 
+                           th:href="@{/pruebas/listado/}+${categoria.idCategoria}"
+                           >[[${categoria.nombre}]]</a>
+                    </li>                    
+                </ul>
+            </div>
+        </section>
+
+        <!-- 2 Sección principal para mostrar la informaccion de la entidad producto -->
+        <section th:fragment="listadoProductos" id="productos">
+            <div class="row row-cols-4">
+                <div class="card" th:each="p : ${productos}">
+                    <figure><img th:src="${p.rutaImagen}" 
+                                 class="card-img-top" alt="..."
+                                 height="200"/>
+                        <figcaption>[[${p.precio}]]
+                        </figcaption>
+                    </figure>
+                    <div class="card-header">
+                        <h4 class="card-title">[[${p.descripcion}]]</h4>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">[[${p.nombre}]]</p>                    
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3 Sección para crear los filtros -->
+        <section th:fragment="filtros" class="bg-light">
+            <div class="row py-2">
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <form method="POST" th:action="@{/pruebas/query1}" 
+                          class="was-validated">
+                        <div class="card">                            
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label for="idCategoria">[[#{pruebas.idCategoria}]]</label>
+                                    <input type="number" class="form-control" 
+                                           th:value="${idCategoria}"
+                                           th:name="idCategoria" required="true"/>
+                                </div>
+                                
+                            </div>
+                            <div class="card-footer text-center">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-check"></i> [[#{pruebas.ampliadas}]]
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                
+            </div>
+        </section>
+        
+        
+        
+    </body>
+</html>

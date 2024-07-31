@@ -18,14 +18,28 @@
 	
 	<div class="container-xl ">
 		<div class="row justify-content-center justify-content-md-between">
+                    
 			<nav class="col-3 d-flex flex-column align-items-center mt-5 mt-md-0 flex-md-row justify-content-md-end">
 				<a class="d-block px-2 py-1 fs-6 fw-bold text-uppercase text-black text-decoration-none" href="#">[[#{plantilla.nosotros}]]</a>
 				<a class="d-block px-2 py-1 fs-6 fw-bold text-uppercase text-black text-decoration-none" th:href="@{/producto/listado}">[[#{plantilla.productos}]]</a>
 				<a class="d-block px-2 py-1 fs-6 fw-bold text-uppercase text-black text-decoration-none" th:href="@{/categoria/listado}">[[#{plantilla.categorias}]]</a>
-				<a class="d-block px-2 py-1 fs-6 fw-bold text-uppercase text-black text-decoration-none" href="#">[[#{plantilla.reservaciones}]]</a>
-
+                                <a class="d-block px-2 py-1 fs-6 fw-bold text-uppercase text-black text-decoration-none" href="#">[[#{plantilla.reservaciones}]]</a>
+                                <li class="nav-item dropdown"><a class="nav-link dropdown-toggle d-block px-2 py-1 fs-6 fw-bold text-uppercase text-black text-decoration-none" data-bs-toggle="dropdown"
+                                                                 href="#"
+                                                                 role="button"
+                                                                 aria-expanded="false">[[#{plantilla.pruebas}]]</a>
+                                <ul class="dropdown-menu dropdown-menu-dark">
+                                    <li><a class="dropdown-item"  th:href="@{/pruebas/listado}">[[#{plantilla.asociaciones}]]</a></li>
+                                    <li><a class="dropdown-item" th:href="@{/pruebas/listado2}">[[#{plantilla.consultas}]]</a></li>
+                                </ul>
+                                    </li>
 			</nav>
+                        <ul class="navbar-nav">
+
+                                
+                            </ul>
 			<div class="col-6 d-flex justify-content-center align-items-center">
+                            
 				<a th:href="@{/}">
 					<img class="img-fluid" style="width: 200px; height: auto;" src="https://firebasestorage.googleapis.com/v0/b/proyectoappsweb-1ca6f.appspot.com/o/Logo.jpg?alt=media&token=17445fcf-03e4-4f4f-bf81-47728a88c153" alt="imagen logo no carga">
 				</a>

@@ -17,4 +17,6 @@ public interface ProductoService {
 	public Producto delete(Long idProducto);
 
 	public void guardar(Producto producto);
+        
+        public List<Producto> findByCategoriaIdCategoria(Long idCategoria);
 }

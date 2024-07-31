@@ -43,6 +43,12 @@ public class ProductoServiceImpl implements ProductoService {
 	public void guardar(Producto producto) {
 		productoDao.save(producto);
 	}
-
+    
+    @Override
+    @Transactional (readOnly = true)
+    public List<Producto> findByCategoriaIdCategoria(Long idCategoria ){
+        return productoDao.findByCategoriaIdCategoria(idCategoria);
+        
+    }
 
 }

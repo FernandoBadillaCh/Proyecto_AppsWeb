@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface ProductoDao extends JpaRepository<Producto, Long>{
 
-	List<Producto> findByCategoriaIdCategoria(Long idCategoria);
+	public List<Producto> findByCategoriaIdCategoria(Long idCategoria);
 }
