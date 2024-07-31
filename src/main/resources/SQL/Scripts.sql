@@ -17,9 +17,11 @@ CREATE TABLE Roles (
 CREATE TABLE Usuarios (
     id_usuario INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
-    correo VARCHAR(100) NOT NULL,
+    correo VARCHAR(100) NOT NULL unique,
     clave VARCHAR(255) NOT NULL,
     id_rol INT,
+	direccion VARCHAR(255) DEFAULT 'Dirección no especificada',
+    telefono VARCHAR(20) NOT NULL unique,
     FOREIGN KEY (id_rol) REFERENCES Roles(id_rol)
 );
 
@@ -27,7 +29,7 @@ CREATE TABLE Usuarios (
 CREATE TABLE Categorias (
     id_categoria INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(50) NOT NULL,
-    ruta_imagen VARCHAR(255)
+    ruta_imagen VARCHAR(1024)
 );
 
 
@@ -37,7 +39,7 @@ CREATE TABLE Productos (
     descripcion VARCHAR(180),
     precio DECIMAL(10,2) NOT NULL,
     id_categoria INT,
-    ruta_imagen VARCHAR(255),
+    ruta_imagen VARCHAR(1024),
     FOREIGN KEY (id_categoria) REFERENCES Categorias(id_categoria)
 );
 
@@ -51,48 +53,6 @@ CREATE TABLE Reservas (
     FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario)
 );
 
-create table bebida (
-  id_bebida int NOT NULL AUTO_INCREMENT,
-  detalle varchar(30) ,
-  precio int ,
-  imagen varchar(1024) ,
-  activo bool,
-  PRIMARY KEY (id_bebida)
-  
- )ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4;
-
-create table platofuerte (
-  id_platoFuerte int NOT NULL AUTO_INCREMENT,
-  detalle varchar(30) ,
-  precio int ,
-  imagen varchar(1024) ,
-  activo bool,
-  PRIMARY KEY (id_platoFuerte)
-  
- )ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4;
-
-
-create table postre (
-  id_postre int NOT NULL AUTO_INCREMENT,
-  detalle varchar(30) ,
-  precio int ,
-  imagen varchar(1024) ,
-  activo bool,
-  PRIMARY KEY (id_postre)
-  
- )ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4;
-
-create table entrada (
-  id_entrada int NOT NULL AUTO_INCREMENT,
-  detalle varchar(30) ,
-  precio int ,
-  imagen varchar(1024) ,
-  activo bool,
-  PRIMARY KEY (id_entrada)
-  
- )ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4;
-
-
 DROP TABLE IF EXISTS Reservas;
 DROP TABLE IF EXISTS Productos;
 DROP TABLE IF EXISTS Categorias;
@@ -105,18 +65,14 @@ INSERT INTO Categorias (nombre, ruta_imagen) VALUES ('Prueba 3', 'https://hips.h
 INSERT INTO Categorias (nombre, ruta_imagen) VALUES ('Prueba 4', 'https://cdn7.kiwilimon.com/clasificacion/3675/3675.jpg');
 INSERT INTO Categorias (nombre, ruta_imagen) VALUES ('Prueba 5', 'https://hips.hearstapps.com/hmg-prod/images/salmon-con-trigueros-y-judias-1562929760.jpg?crop=1.00xw:0.335xh;0,0.377xh&resize=1200:*');
 INSERT INTO Categorias (nombre, ruta_imagen) VALUES ('Prueba 6', 'https://cdn7.kiwilimon.com/clasificacion/3675/3675.jpg');
-
-INSERT INTO Categorias (nombre, ruta_imagen) VALUES ('Prueba 6', 'https://cdn7.kiwilimon.com/clasificacion/3675/3675.jpg');
+INSERT INTO Categorias (nombre, ruta_imagen) VALUES ('Prueba 7', 'https://cdn7.kiwilimon.com/clasificacion/3675/3675.jpg');
 
 INSERT INTO Productos (nombre, descripcion, precio, id_categoria, ruta_imagen)
 VALUES ('Producto 1', 'Descripción del Producto 1', 19.99, 1, 'https://cdn7.kiwilimon.com/clasificacion/3675/3675.jpg'),
-       ('Producto 2', 'Descripción del Producto 2', 24.99, 2, 'https://firebasestorage.googleapis.com/v0/b/proyectoappsweb-1ca6f.appspot.com/o/banner2.jpg?alt=media&token=2c2b830c-fd42-4d30-8f7b-990190468107'),
+       ('Producto 2', 'Descripción del Producto 2', 24.99, 2, 'https://resizer.glanacion.com/resizer/v2/parrillada-completa-BCMNCK4U35CBNHAHVLKS3S2R5Y.jpg?auth=9a156e897b2f058181cf11dcf105762dc445b59640712d42824718870f2f897f&width=768&height=512&quality=70&smart=true'),
        ('Producto 3', 'Descripción del Producto 3', 15.50, 1, 'https://cdn7.kiwilimon.com/clasificacion/3675/3675.jpg'),
        ('Producto 4', 'Descripción del Producto 4', 29.99, 3, 'https://hips.hearstapps.com/hmg-prod/images/salmon-con-trigueros-y-judias-1562929760.jpg?crop=1.00xw:0.335xh;0,0.377xh&resize=1200:*'),
-       ('Producto 5', 'Descripción del Producto 5', 12.75, 2, 'https://firebasestorage.googleapis.com/v0/b/proyectoappsweb-1ca6f.appspot.com/o/banner2.jpg?alt=media&token=2c2b830c-fd42-4d30-8f7b-990190468107'),
+       ('Producto 5', 'Descripción del Producto 5', 12.75, 2, 'https://resizer.glanacion.com/resizer/v2/parrillada-completa-BCMNCK4U35CBNHAHVLKS3S2R5Y.jpg?auth=9a156e897b2f058181cf11dcf105762dc445b59640712d42824718870f2f897f&width=768&height=512&quality=70&smart=true'),
        ('Producto 6', 'Descripción del Producto 6', 18.00, 3, 'https://hips.hearstapps.com/hmg-prod/images/salmon-con-trigueros-y-judias-1562929760.jpg?crop=1.00xw:0.335xh;0,0.377xh&resize=1200:*'),
        ('Producto 7', 'Descripción del Producto 7', 22.50, 1, 'https://hips.hearstapps.com/hmg-prod/images/salmon-con-trigueros-y-judias-1562929760.jpg?crop=1.00xw:0.335xh;0,0.377xh&resize=1200:*');
 
-ALTER TABLE Categorias MODIFY ruta_imagen VARCHAR(1024);
-
-ALTER TABLE Productos MODIFY ruta_imagen VARCHAR(1024);

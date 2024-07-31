@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 @Entity
@@ -18,4 +19,7 @@ public class Rol implements Serializable {
 	@Column(name="id_rol")
 	private Long idRol;
 	private String nombre;
+
+	@OneToMany(mappedBy = "rol")
+	private List<Usuario> usuarios;
 }
