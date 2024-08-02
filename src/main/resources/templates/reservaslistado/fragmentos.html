@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>Entre Amigos</title>
+    </head>
+    <body>
+        <!-- 3 Sección principal para mostrar la informaccion ControldeReservas -->
+        <section th:fragment="controlreservas">
+            <style>
+                body {
+                    position: relative;
+                    margin: 0;
+                    height: 100vh; /* Asegura que el cuerpo ocupe toda la altura de la ventana */
+                }
+
+                body::before {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-image: url("https://thesignatureva.com/wp-content/uploads/2015/07/fotolia_76809582_subscription_monthly_xxl-2048x1365.jpg");
+                    background-size: cover;
+                    background-repeat: no-repeat;
+                    background-position: center top 200px; /* Ajusta el valor para mover la imagen hacia abajo */
+                    opacity: 0.3; /* Ajusta el nivel de transparencia, 0.0 es completamente transparente, 1.0 es completamente opaco */
+                    z-index: -1; /* Asegura que el pseudo-elemento esté detrás del contenido */
+                }
+            </style>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-20">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>[[#{reservas.listado}]]</h4>
+                            </div>
+
+                            <table class="table table-striped table-hover">
+                                <thead class="table-dark">
+                                    <tr><th>[[#{reservas.detalle}]]                     
+                                        </th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th>
+                                            <div class="input-group mb-2">
+                                                <input type="text" class="form-control" placeholder="Buscar Cliente" aria-label="Buscar_Cliente" aria-describedby="button-addon2">
+                                                    <button class="btn btn-outline-secondary" type="search" id="button-addon2">Buscar</button>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Cédula</td>
+                                        <td>Nombre</td>
+                                        <td>Correo Electrónico</td>
+                                        <td>Número Telefónico</td>
+                                        <td>Número de Personas</td>
+                                        <td>Fecha</td>
+
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label class="border p-2">Cédula</label></td>
+                                        <td><label class="border p-2">Nombre</label></td>
+                                        <td><label class="border p-2">Correo Electronico</label></td>
+                                        <td><label class="border p-2">Número de Teléfono</label></td>
+                                        <td><label class="border p-2">Cantidad de Personas</label></td>
+                                        <td><label class="border p-2">Fecha de Reservación</label></td>
+
+
+                                        <td></td>
+                                        <td><a class="btn btn-success">
+                                                <i class="fas fa-pencil"></i> [[#{accion.actualizar}]]
+                                            </a>
+
+                                            <a class="btn btn-danger">
+                                                <i class="fas fa-trash"></i> [[#{accion.eliminar}]]
+                                            </a>
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </body>
+</html>
