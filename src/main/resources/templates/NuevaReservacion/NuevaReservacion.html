@@ -27,15 +27,20 @@
                     height: 100%;
                     background-image: url("https://thesignatureva.com/wp-content/uploads/2015/07/fotolia_76809582_subscription_monthly_xxl-2048x1365.jpg");
                     background-size: cover;
+                    background-attachment: fixed;
                     background-repeat: no-repeat;
-                    background-position: center top 200px; /* Ajusta el valor para mover la imagen hacia abajo */
+                    background-position: center top 275px; /* Ajusta el valor para mover la imagen hacia abajo */
                     opacity: 0.3; /* Ajusta el nivel de transparencia, 0.0 es completamente transparente, 1.0 es completamente opaco */
                     z-index: -1; /* Asegura que el pseudo-elemento esté detrás del contenido */
+                    display: flex;
+                    align-items: center;
+                    height: 200vh;
+                    margin: 0;
                 }
 
 
                 .card {
-                    border-radius: 10px;
+                    border-radius: 30px;
                 }
 
                 .card-header {
@@ -46,16 +51,13 @@
                 .btn-custom {
                     background-color: #343a40; /* Color gris oscuro */
                     color: white;
-                    border: none;
-                }
-
-                .btn-custom:hover {
-                    background-color: #23272b; /* Un tono más oscuro de gris */
+                    border: 1;
                 }
 
                 .btn-custom:hover {
                     background-color: #23272b; /* Un tono más oscuro de gris */
                     color: white; /* Texto blanco cuando el mouse está sobre el botón */
+                    
                 }
 
 
