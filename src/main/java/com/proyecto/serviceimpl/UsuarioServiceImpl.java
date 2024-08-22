@@ -1,17 +1,13 @@
 package com.proyecto.serviceimpl;
 
-import com.proyecto.dao.CategoriaDao;
+import com.proyecto.dao.RolDao;
 import com.proyecto.dao.UsuarioDao;
-import com.proyecto.dao.UsuarioDaoPageable;
-import com.proyecto.domain.Categoria;
+import com.proyecto.domain.Rol;
 import com.proyecto.domain.Usuario;
-import com.proyecto.service.CategoriaService;
 import com.proyecto.service.UsuarioService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,38 +16,52 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	@Autowired
 	private UsuarioDao usuarioDao;
-
 	@Autowired
-	private UsuarioDaoPageable usuarioRepository;
+	private RolDao rolDao;
 
 	@Override
-	@Transactional(readOnly=true)
+	@Transactional
 	public List<Usuario> getUsuarios() {
 		return usuarioDao.findAll();
 	}
 
 	@Override
-	@Transactional(readOnly=true)
-	public Usuario getUsuario(Long idUsuario) {
-		return usuarioDao.findById(idUsuario).orElse(null);
+	@Transactional
+	public Usuario getUsuario(Usuario usuario) {
+		return usuarioDao.findById(usuario.getIdUsuario()).orElse(null);
+	}
+
+
+	@Override
+	@Transactional
+	public Usuario getUsuarioPorCorreo(String correo) {
+		return usuarioDao.findByCorreo(correo);
 	}
 
 	@Override
 	@Transactional
-	public void eliminar(Long idUsuario) {
-		usuarioDao.deleteById(idUsuario);
+	public Usuario getUsuarioPorCorreoYClave(String correo, String clave) {
+		return usuarioDao.findByCorreoAndClave(correo, clave);
 	}
 
 	@Override
 	@Transactional
-	public void guardar(Usuario usuario) {
+	public boolean existeUsuarioPorCorreo(String correo) {
+		return usuarioDao.existsByCorreo(correo);
+	}
+
+	@Override
+	public void save(Usuario usuario) {
+		if (usuario.getRol() == null) {
+			Rol rol = rolDao.findByNombre("ROLE_USER");
+			usuario.setRol(rol);
+		}
 		usuarioDao.save(usuario);
 	}
 
-
 	@Override
-	@Transactional(readOnly=true)
-	public Page<Usuario> getUsuarios(Pageable pageable) {
-		return usuarioRepository.findAll(pageable);
+	@Transactional
+	public void delete(Usuario usuario) {
+		usuarioDao.delete(usuario);
 	}
 }

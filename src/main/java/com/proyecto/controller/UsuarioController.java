@@ -9,11 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/")
@@ -25,20 +23,19 @@ public class UsuarioController {
 	@Autowired
 	RolService rolService;
 
-
 	@GetMapping("/administrarusuarios")
-	public String administrarUsuarios(Model model,
-	                                  @RequestParam(defaultValue = "0") int page) {
-		Pageable pageable = PageRequest.of(page, 15);
-		Page<Usuario> usuariosPage = usuarioService.getUsuarios(pageable);
+	public String administrarUsuarios(Model model) {
+		// Obtener todos los usuarios sin paginación
+		List<Usuario> usuarios = usuarioService.getUsuarios();
 		var roles = rolService.getRoles();
 
-		model.addAttribute("usuariosPage", usuariosPage);
+		// Agregar los usuarios y roles al modelo
+		model.addAttribute("usuarios", usuarios);
 		model.addAttribute("roles", roles);
-		model.addAttribute("currentPage", page);
 
 		return "/usuario/listado";
 	}
+
 
 
 	@PostMapping("/register")
@@ -48,7 +45,7 @@ public class UsuarioController {
 		if (rol != null) {
 			usuario.setRol(rol);
 		}
-		usuarioService.guardar(usuario);
+		usuarioService.save(usuario);
 		return "index";
 	}
 
@@ -59,7 +56,7 @@ public class UsuarioController {
 		if (rol != null) {
 			usuario.setRol(rol);
 		}
-		usuarioService.guardar(usuario);
+		usuarioService.save(usuario);
 		return "redirect:/administrarusuarios";
 	}
 }

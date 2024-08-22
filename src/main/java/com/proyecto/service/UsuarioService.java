@@ -1,20 +1,28 @@
 package com.proyecto.service;
 
+
 import com.proyecto.domain.Usuario;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public interface UsuarioService {
 
-	public List<Usuario> getUsuarios();
 
-	public Usuario getUsuario(Long idUsuario);
 
-	public void eliminar(Long idUsuario);
+	List<Usuario> getUsuarios();
 
-	public void guardar(Usuario usuario);
+	Usuario getUsuario(Usuario usuario);
 
-	public Page<Usuario> getUsuarios(Pageable pageable);
+	Usuario getUsuarioPorCorreo(String correo);
+
+	Usuario getUsuarioPorCorreoYClave(String correo, String clave);
+
+	boolean existeUsuarioPorCorreo(String correo);
+
+	void save(Usuario usuario);
+
+	void delete(Usuario usuario);
+
 }
