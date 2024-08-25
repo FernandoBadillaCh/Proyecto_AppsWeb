@@ -3,89 +3,91 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 
-<head th:fragment="head">
-	<title>Entre Amigos</title>
-	<meta charset="UTF-8"/>
-	<link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
-	<link th:href="@{/webjars/font-awesome/css/all.css}" rel="stylesheet"/>
-	<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
-	<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
-	<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-	
-</head>
+    <head th:fragment="head">
+        <title>Entre Amigos</title>
+        <meta charset="UTF-8"/>
+        <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+        <link th:href="@{/webjars/font-awesome/css/all.css}" rel="stylesheet"/>
+        <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+        <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+        <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 
-<body>
-<header th:fragment="header" class="header">
-	<div class="container-xl">
-		<div class="row justify-content-center justify-content-md-between">
-			
-			<nav class="col-4 d-flex flex-column align-items-center mt-5 mt-md-0 flex-md-row justify-content-md-end">
-				<a class="d-block px-2 py-1 fs-6 fw-bold text-uppercase text-black text-decoration-none" href="#">[[#{plantilla.nosotros}]]</a>
-				<a class="d-block px-2 py-1 fs-6 fw-bold text-uppercase text-black text-decoration-none" th:href="@{/producto/listado}">[[#{plantilla.productos}]]</a>
-				<a class="d-block px-2 py-1 fs-6 fw-bold text-uppercase text-black text-decoration-none" th:href="@{/categoria/listado}">[[#{plantilla.categorias}]]</a>
-                                <li class="nav-item px-2"><a class="nav-menu-link nav-link" th:href="@{/carrito/listado}">[[#{plantilla.carrito}]]</a></li>
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle d-block px-1 py-2 fs-8 fw-bold text-uppercase text-black text-decoration-none" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">[[#{Plantilla.Reservas}]]</a>
-					<ul class="dropdown-menu dropdown-menu-dark">
-						<li><a class="dropdown-item" th:href="@{/NuevaReservacion/NuevaReservacion}">[[#{Plantilla.Reservas}]]</a></li>
-						<li><a class="dropdown-item" th:href="@{/reservaslistado/listado}">[[#{reservas.listado}]]</a></li>
-						<li><a class="dropdown-item" th:href="@{/pruebas/listado}">[[#{plantilla.asociaciones}]]</a></li>
-						<li><a class="dropdown-item" th:href="@{/pruebas/listado2}">[[#{plantilla.consultas}]]</a></li>
-					</ul>
-				</li>
-			</nav>
-			
-			<!-- Logo -->
-			<div class="col-4 d-flex justify-content-center align-items-center">
-				<a th:href="@{/}">
-					<img class="img-fluid" style="width: 200px; height: auto;" src="https://firebasestorage.googleapis.com/v0/b/proyectoappsweb-1ca6f.appspot.com/o/Logo.jpg?alt=media&token=17445fcf-03e4-4f4f-bf81-47728a88c153" alt="imagen logo no carga">
-				</a>
-			</div>
-			
-			<!-- Enlaces de Usuario y Autenticación -->
-			<nav class="col-4 d-flex flex-column align-items-center mt-5 mt-md-0 flex-md-row justify-content-md-end">
-				<ul class="navbar-nav">
-					<!-- Mostrar si no está autenticado -->
-					<li class="nav-item" sec:authorized="!isAuthenticated()">
-						<a class="nav-link d-flex align-items-center" th:href="@{/login}" title="Iniciar Sesión">
-							<i class="fas fa-sign-in-alt me-2"></i> Iniciar Sesión</a>
-					</li>
-					<!-- Mostrar si está autenticado -->
-					<li class="nav-item" sec:authorized="isAuthenticated()">
-						<a class="nav-link d-flex align-items-center" href="#" title="Perfil">
-							<i class="fas fa-user me-2"></i>
-							<span sec:authentication="name">[[${principal.name}]]</span>
-						</a>
-					</li>
-					<li class="nav-item" sec:authorized="isAuthenticated()">
-						<form method="post" th:action="@{/logout}" class="d-inline">
-							<button class="btn btn-dark" type="submit" title="Cerrar Sesión">
-								<i class="fas fa-sign-out-alt"></i>
-							</button>
-						</form>
-					</li>
-				</ul>
-			</nav>
-		</div>
-	</div>
-</header>
+    </head>
 
+    <body>
+        <header th:fragment="header" class="header">
+            <div class="container-xl">
+                <div class="row justify-content-center justify-content-md-between">
 
+                    <nav class="col-4 d-flex flex-column align-items-center mt-5 mt-md-0 flex-md-row justify-content-center">
+                        <a class="d-block px-2 py-1 fs-6 fw-bold text-uppercase text-black text-decoration-none text-center" href="#">[[#{plantilla.nosotros}]]</a>
+                        <a class="d-block px-2 py-1 fs-6 fw-bold text-uppercase text-black text-decoration-none text-center" th:href="@{/producto/listado}">[[#{plantilla.productos}]]</a>
+                        <a class="d-block px-2 py-1 fs-6 fw-bold text-uppercase text-black text-decoration-none text-center" th:href="@{/categoria/listado}">[[#{plantilla.categorias}]]</a>
+                        <a class="d-block px-2 py-1 fs-6 fw-bold text-uppercase text-black text-decoration-none text-center" th:href="@{/carrito/listado}">[[#{plantilla.carrito}]]</a>
+                        <a class="d-block px-2 py-1 fs-6 fw-bold text-uppercase text-black text-decoration-none text-center" th:href="@{/reportes/principal}">[[#{plantilla.reportes}]]</a>
 
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle d-block px-1 py-2 fs-8 fw-bold text-uppercase text-black text-decoration-none text-center" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">[[#{Plantilla.Reservas}]]</a>
+                            <ul class="dropdown-menu dropdown-menu-dark text-center">
+                                <li><a class="dropdown-item" th:href="@{/NuevaReservacion/NuevaReservacion}">[[#{Plantilla.Reservas}]]</a></li>
+                                <li><a class="dropdown-item" th:href="@{/reservaslistado/listado}">[[#{reservas.listado}]]</a></li>
+                                <li><a class="dropdown-item" th:href="@{/pruebas/listado}">[[#{plantilla.asociaciones}]]</a></li>
+                                <li><a class="dropdown-item" th:href="@{/pruebas/listado2}">[[#{plantilla.consultas}]]</a></li>
+                            </ul>
+                        </li>
+                    </nav>
 
+                    <!-- Logo -->
+                    <div class="col-4 d-flex justify-content-center align-items-center">
+                        <a th:href="@{/}">
+                            <img class="img-fluid" style="width: 200px; height: auto;" src="https://firebasestorage.googleapis.com/v0/b/proyectoappsweb-1ca6f.appspot.com/o/Logo.jpg?alt=media&token=17445fcf-03e4-4f4f-bf81-47728a88c153" alt="imagen logo no carga">
+                        </a>
+                    </div>
+
+                    <!-- Enlaces de Usuario y Autenticación -->
+                    <nav class="col-4 d-flex flex-column align-items-center mt-5 mt-md-0 flex-md-row justify-content-md-end">
+                        <ul class="navbar-nav">
+                            <!-- Mostrar si no está autenticado -->
+                            <li class="nav-item" sec:authorized="!isAuthenticated()">
+                                <a class="nav-link d-flex align-items-center" th:href="@{/login}" title="Iniciar Sesión">
+                                    <i class="fas fa-sign-in-alt me-2"></i> Iniciar Sesión</a>
+                            </li>
+                            <!-- Mostrar si está autenticado -->
+                            <li class="nav-item" sec:authorized="isAuthenticated()">
+                                <a class="nav-link d-flex align-items-center" href="#" title="Perfil">
+                                    <i class="fas fa-user me-2"></i>
+                                    <span sec:authentication="name">[[${principal.name}]]</span>
+                                </a>
+                            </li>
+                            <li class="nav-item" sec:authorized="isAuthenticated()">
+                                <form method="post" th:action="@{/logout}" class="d-inline">
+                                    <button class="btn btn-dark" type="submit" title="Cerrar Sesión">
+                                        <i class="fas fa-sign-out-alt"></i>
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </header>
 
 
-<footer th:fragment="footer" class="bg-info text-white mt-5 p-2">
-	<div class="container">
-		<div class="col">
-			<p class="lead text-center">
-				&COPY [[#{plantilla.derechos}]]
-			</p>
-		</div>
-	</div>
 
-</footer>
 
-</body>
+
+
+        <footer th:fragment="footer" class="bg-info text-white mt-5 p-2">
+            <div class="container">
+                <div class="col">
+                    <p class="lead text-center">
+                        &COPY [[#{plantilla.derechos}]]
+                    </p>
+                </div>
+            </div>
+
+        </footer>
+
+    </body>
 
 </html>
