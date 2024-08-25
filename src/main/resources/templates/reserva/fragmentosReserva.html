@@ -1,0 +1,57 @@
+<html>
+<body>
+
+<section th:fragment="crearReserva">
+	<div class="container mt-5">
+		<div class="row justify-content-center">
+			<div class="col-md-8">
+				<div class="card shadow-lg border-light rounded">
+					<div class="card-header bg-primary text-white">
+						<h4 class="mb-0">Realizar Reserva</h4>
+					</div>
+					
+					<div class="card-body">
+						<form th:action="@{/reservas/guardar}" method="post">
+
+							<div class="form-group mb-3">
+								<label for="nombreUsuario" class="form-label">Nombre:</label>
+								<input type="text" class="form-control" id="nombreUsuario" th:value="${usuario.nombre}" readonly>
+							</div>
+							<div class="form-group mb-3">
+								<label for="telefonoUsuario" class="form-label">Teléfono:</label>
+								<input type="text" class="form-control" id="telefonoUsuario" th:value="${usuario.telefono}" readonly>
+							</div>
+							
+							<div class="mb-3">
+								<label for="mesa" class="form-label">Mesa:</label>
+								<select class="form-select" id="mesa" name="mesa.idMesa" required>
+									<option th:each="mesa : ${mesas}" th:value="${mesa.idMesa}" th:text="${mesa.nombre}">Mesa</option>
+								</select>
+							</div>
+							
+							<div class="mb-3">
+								<label for="fecha" class="form-label">Fecha de Reserva:</label>
+								<input type="date" class="form-control" id="fecha" name="fecha" required>
+							</div>
+							
+							<div class="mb-3">
+								<label for="hora" class="form-label">Hora:</label>
+								<input type="time" class="form-control" id="hora" name="hora" required>
+							</div>
+							
+
+							<input type="hidden" name="usuario.idUsuario" th:value="${usuario.idUsuario}" />
+							
+							<button type="submit" class="btn btn-primary w-100">Enviar Reserva</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+
+</body>
+</html>

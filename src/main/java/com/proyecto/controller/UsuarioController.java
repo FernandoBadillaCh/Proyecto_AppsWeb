@@ -15,6 +15,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/")
 public class UsuarioController {
@@ -27,15 +29,13 @@ public class UsuarioController {
 
 
 	@GetMapping("/administrarusuarios")
-	public String administrarUsuarios(Model model,
-	                                  @RequestParam(defaultValue = "0") int page) {
-		Pageable pageable = PageRequest.of(page, 15);
-		Page<Usuario> usuariosPage = usuarioService.getUsuarios(pageable);
+	public String administrarUsuarios(Model model) {
+		// Recupera todos los usuarios sin paginación
+		List<Usuario> usuarios = usuarioService.getUsuarios();
 		var roles = rolService.getRoles();
 
-		model.addAttribute("usuariosPage", usuariosPage);
+		model.addAttribute("usuarios", usuarios);
 		model.addAttribute("roles", roles);
-		model.addAttribute("currentPage", page);
 
 		return "/usuario/listado";
 	}

@@ -17,15 +17,21 @@ public class Usuario implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id_usuario")
 	private Long idUsuario;
+	private String username;
 	private String nombre;
 	private String correo;
 	private String clave;
 	private String direccion;
 	private String telefono;
+	private boolean activo;
 
 	@ManyToOne
 	@JoinColumn(name = "id_rol")
 	private Rol rol;
+
+	public Usuario(String username) {
+		this.username = username;
+	}
 
 
 }

@@ -18,7 +18,7 @@ CREATE TABLE Usuarios (
     id_usuario INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
     correo VARCHAR(100) NOT NULL unique,
-    clave VARCHAR(255) NOT NULL,
+    clave VARCHAR(255) NOT NULL,usuario
     id_rol INT,
 	direccion VARCHAR(255) DEFAULT 'Dirección no especificada',
     telefono VARCHAR(20) NOT NULL unique,
@@ -43,6 +43,11 @@ CREATE TABLE Productos (
     FOREIGN KEY (id_categoria) REFERENCES Categorias(id_categoria)
 );
 
+CREATE TABLE Mesas (
+    id_mesa BIGINT AUTO_INCREMENT PRIMARY KEY,
+    numero_mesa BIGINT NOT NULL,
+    capacidad DATE NOT NULL
+);
 
 CREATE TABLE Reservas (
     id_reserva INT AUTO_INCREMENT PRIMARY KEY,
@@ -50,8 +55,12 @@ CREATE TABLE Reservas (
     fecha DATE NOT NULL,
     hora TIME NOT NULL,
     cantidad_personas INT NOT NULL,
-    FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario)
+    id_mesa INT,
+    FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario),
+    FOREIGN KEY (id_mesa) REFERENCES Mesas(id_mesa)
 );
+
+
 
 DROP TABLE IF EXISTS Reservas;
 DROP TABLE IF EXISTS Productos;
@@ -80,29 +89,29 @@ INSERT INTO Roles (nombre) VALUES ('Administrador');
 INSERT INTO Roles (nombre) VALUES ('Vendedor');
 INSERT INTO Roles (nombre) VALUES ('Cliente');
 
-INSERT INTO Usuarios (nombre, correo, clave, id_rol, direccion, telefono) VALUES ('Juan Pérez', 'juan.perez@example.com', 'clave123', 1, 'Calle Falsa 123', '555-1234');
-INSERT INTO Usuarios (nombre, correo, clave, id_rol, direccion, telefono) VALUES ('María López', 'maria.lopez@example.com', 'clave123', 2, 'Avenida Siempre Viva 742', '555-5678');
-INSERT INTO Usuarios (nombre, correo, clave, id_rol, direccion, telefono) VALUES ('Carlos García', 'carlos.garcia@example.com', 'clave123', 3, 'Boulevard de los Sueños Rotos 456', '555-8765');
-INSERT INTO Usuarios (nombre, correo, clave, id_rol, direccion, telefono) VALUES ('Ana Martínez', 'ana.martinez@example.com', 'clave123', 1, 'Calle de la Amargura 789', '555-4321');
-INSERT INTO Usuarios (nombre, correo, clave, id_rol, direccion, telefono) VALUES ('Luis Hernández', 'luis.hernandez@example.com', 'clave123', 2, 'Avenida del Libertador 101', '555-9101');
-INSERT INTO Usuarios (nombre, correo, clave, id_rol, direccion, telefono) VALUES ('Sofía Fernández', 'sofia.fernandez@example.com', 'clave123', 3, 'Calle del Pez 202', '555-1122');
-INSERT INTO Usuarios (nombre, correo, clave, id_rol, direccion, telefono) VALUES ('Miguel Torres', 'miguel.torres@example.com', 'clave123', 1, 'Calle del Sol 303', '555-3344');
-INSERT INTO Usuarios (nombre, correo, clave, id_rol, direccion, telefono) VALUES ('Laura Ramírez', 'laura.ramirez@example.com', 'clave123', 2, 'Avenida del Mar 404', '555-5566');
-INSERT INTO Usuarios (nombre, correo, clave, id_rol, direccion, telefono) VALUES ('José Sánchez', 'jose.sanchez@example.com', 'clave123', 3, 'Boulevard de la Esperanza 505', '555-7788');
-INSERT INTO Usuarios (nombre, correo, clave, id_rol, direccion, telefono) VALUES ('Elena Díaz', 'elena.diaz@example.com', 'clave123', 1, 'Calle de las Flores 606', '555-9900');
-INSERT INTO Usuarios (nombre, correo, clave, id_rol, direccion, telefono) VALUES ('Pedro Morales', 'pedro.morales@example.com', 'clave123', 2, 'Avenida del Sol 707', '555-1235');
-INSERT INTO Usuarios (nombre, correo, clave, id_rol, direccion, telefono) VALUES ('Lucía Ruiz', 'lucia.ruiz@example.com', 'clave123', 3, 'Calle del Campo 808', '555-5679');
-INSERT INTO Usuarios (nombre, correo, clave, id_rol, direccion, telefono) VALUES ('Diego Castillo', 'diego.castillo@example.com', 'clave123', 1, 'Boulevard de los Sauces 909', '555-8766');
-INSERT INTO Usuarios (nombre, correo, clave, id_rol, direccion, telefono) VALUES ('Gabriela Ortega', 'gabriela.ortega@example.com', 'clave123', 2, 'Calle del Río 010', '555-4322');
-INSERT INTO Usuarios (nombre, correo, clave, id_rol, direccion, telefono) VALUES ('Daniel Ramos', 'daniel.ramos@example.com', 'clave123', 3, 'Avenida de las Estrellas 121', '555-9102');
-INSERT INTO Usuarios (nombre, correo, clave, id_rol, direccion, telefono) VALUES ('Patricia Vargas', 'patricia.vargas@example.com', 'clave123', 1, 'Calle del Norte 232', '555-1123');
-INSERT INTO Usuarios (nombre, correo, clave, id_rol, direccion, telefono) VALUES ('Alejandro Gómez', 'alejandro.gomez@example.com', 'clave123', 2, 'Avenida del Sur 343', '555-3345');
-INSERT INTO Usuarios (nombre, correo, clave, id_rol, direccion, telefono) VALUES ('Isabel Castillo', 'isabel.castillo@example.com', 'clave123', 3, 'Calle de la Luna 454', '555-5567');
-INSERT INTO Usuarios (nombre, correo, clave, id_rol, direccion, telefono) VALUES ('Francisco Mendoza', 'francisco.mendoza@example.com', 'clave123', 1, 'Boulevard del Sol 565', '555-7789');
-INSERT INTO Usuarios (nombre, correo, clave, id_rol, direccion, telefono) VALUES ('Raquel Soto', 'raquel.soto@example.com', 'clave123', 2, 'Calle de las Aves 676', '555-9901');
-INSERT INTO Usuarios (nombre, correo, clave, id_rol, direccion, telefono) VALUES ('Javier Cruz', 'javier.cruz@example.com', 'clave123', 3, 'Avenida del Cielo 787', '555-1236');
-INSERT INTO Usuarios (nombre, correo, clave, id_rol, direccion, telefono) VALUES ('Natalia Ortiz', 'natalia.ortiz@example.com', 'clave123', 1, 'Calle del Amor 898', '555-5670');
-INSERT INTO Usuarios (nombre, correo, clave, id_rol, direccion, telefono) VALUES ('Antonio Silva', 'antonio.silva@example.com', 'clave123', 2, 'Boulevard de los Poetas 909', '555-8767');
-INSERT INTO Usuarios (nombre, correo, clave, id_rol, direccion, telefono) VALUES ('Teresa Peña', 'teresa.pena@example.com', 'clave123', 3, 'Calle del Viento 010', '555-4323');
-INSERT INTO Usuarios (nombre, correo, clave, id_rol, direccion, telefono) VALUES ('Roberto Herrera', 'roberto.herrera@example.com', 'clave123', 1, 'Avenida del Sol 121', '555-9103');
+INSERT INTO Usuarios (nombre, correo, clave, id_rol, direccion, telefono) VALUES ('Juan Pérez', 'juan.perez@exdample.com', 'clave123', 1, 'Calle Falsa 123', '5551-1234');
+INSERT INTO Usuarios (nombre, correo, clave, id_rol, direccion, telefono) VALUES ('María López', 'maria.lopez@exdample.com', 'clave123', 2, 'Avenida Siempre Viva 742', '555-51678');
+INSERT INTO Usuarios (nombre, correo, clave, id_rol, direccion, telefono) VALUES ('Carlos García', 'carlos.garcia@exadmple.com', 'clave123', 3, 'Boulevard de los Sueños Rotos 456', '1555-8765');
+INSERT INTO Usuarios (nombre, correo, clave, id_rol, direccion, telefono) VALUES ('Ana Martínez', 'ana.martinez@examplde.com', 'clave123', 1, 'Calle de la Amargura 789', '555-43251');
+INSERT INTO Usuarios (nombre, correo, clave, id_rol, direccion, telefono) VALUES ('Luis Hernández', 'luis.hernandez@exadmple.com', 'clave123', 2, 'Avenida del Libertador 101', '5555-9101');
+INSERT INTO Usuarios (nombre, correo, clave, id_rol, direccion, telefono) VALUES ('Sofía Fernández', 'sofia.fernandez@exadmple.com', 'clave123', 3, 'Calle del Pez 202', '555-11226');
+INSERT INTO Usuarios (nombre, correo, clave, id_rol, direccion, telefono) VALUES ('Miguel Torres', 'miguel.torres@exampdle.com', 'clave123', 1, 'Calle del Sol 303', '555-33446');
+INSERT INTO Usuarios (nombre, correo, clave, id_rol, direccion, telefono) VALUES ('Laura Ramírez', 'laura.ramirez@examdple.com', 'clave123', 2, 'Avenida del Mar 404', '555-556673');
+INSERT INTO Usuarios (nombre, correo, clave, id_rol, direccion, telefono) VALUES ('José Sánchez', 'jose.sanchez@examdple.com', 'clave123', 3, 'Boulevard de la Esperanza 505', '55551-7788');
+INSERT INTO Usuarios (nombre, correo, clave, id_rol, direccion, telefono) VALUES ('Elena Díaz', 'elena.diaz@exampled.com', 'clave123', 1, 'Calle de las Flores 606', '555-995500');
+INSERT INTO Usuarios (nombre, correo, clave, id_rol, direccion, telefono) VALUES ('Pedro Morales', 'pedro.morales@edxample.com', 'clave123', 2, 'Avenida del Sol 707', '5555-12355');
+INSERT INTO Usuarios (nombre, correo, clave, id_rol, direccion, telefono) VALUES ('Lucía Ruiz', 'lucia.ruiz@exadmple.com', 'clave123', 3, 'Calle del Campo 808', '555-565579');
+INSERT INTO Usuarios (nombre, correo, clave, id_rol, direccion, telefono) VALUES ('Diego Castillo', 'diego.castillo@exaddmple.com', 'clave123', 1, 'Boulevard de los Sauc5es 909', '55573-8766');
+INSERT INTO Usuarios (nombre, correo, clave, id_rol, direccion, telefono) VALUES ('Gabriela Ortega', 'gabriela.ortega@exdample.com', 'clave123', 2, 'Calle del Río 010', '555-4383722');
+INSERT INTO Usuarios (nombre, correo, clave, id_rol, direccion, telefono) VALUES ('Daniel Ramos', 'daniel.ramos@exdample.cdom', 'clave123', 3, 'Avenida de las Estrellas 121', '555-9157702');
+INSERT INTO Usuarios (nombre, correo, clave, id_rol, direccion, telefono) VALUES ('Patricia Vargas', 'patricia.vargas@examdple.com', 'clave123', 1, 'Calle del Norte 232', '555-115423');
+INSERT INTO Usuarios (nombre, correo, clave, id_rol, direccion, telefono) VALUES ('Alejandro Gómez', 'alejandro.gomez@examdple.com', 'clave123', 2, 'Avenida del Sur 343', '555-373345');
+INSERT INTO Usuarios (nombre, correo, clave, id_rol, direccion, telefono) VALUES ('Isabel Castillo', 'isabel.castillo@examdple.com', 'clave123', 3, 'Calle de la Luna 454', '555-573567');
+INSERT INTO Usuarios (nombre, correo, clave, id_rol, direccion, telefono) VALUES ('Francisco Mendoza', 'francisco.menddoza@example.com', 'clave123', 1, 'Boulevard del Sol 565', '55455-7789');
+INSERT INTO Usuarios (nombre, correo, clave, id_rol, direccion, telefono) VALUES ('Raquel Soto', 'raquel.soto@exdample.com', 'clave123', 2, 'Calle de las Aves 676', '555-990731');
+INSERT INTO Usuarios (nombre, correo, clave, id_rol, direccion, telefono) VALUES ('Javier Cruz', 'javier.cruz@exdample.com', 'clave123', 3, 'Avenida del Cielo 787', '555-1254336');
+INSERT INTO Usuarios (nombre, correo, clave, id_rol, direccion, telefono) VALUES ('Natalia Ortiz', 'natalia.ortiz@edxample.com', 'clave123', 1, 'Calle del Amor 898', '555-567370');
+INSERT INTO Usuarios (nombre, correo, clave, id_rol, direccion, telefono) VALUES ('Antonio Silva', 'antonio.silva@examdple.com', 'clave123', 2, 'Boulevard de los Poetas 909', '555-8573767');
+INSERT INTO Usuarios (nombre, correo, clave, id_rol, direccion, telefono) VALUES ('Teresa Peña', 'teresa.pena@exampled.com', 'clave123', 3, 'Calle del Viento 010', '555-43753323');
+INSERT INTO Usuarios (nombre, correo, clave, id_rol, direccion, telefono) VALUES ('Roberto Herrera', 'roberto.herrera@exadmple.com', 'clave123', 1, 'Avenida del Sol 121', '555-379103');
 
