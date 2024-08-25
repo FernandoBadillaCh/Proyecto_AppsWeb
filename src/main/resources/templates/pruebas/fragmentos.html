@@ -43,20 +43,24 @@
 
         <!-- 3 Sección para crear los filtros -->
         <section th:fragment="filtros" class="bg-light">
-            <div class="row py-2">
-                <div class="col-md-1"></div>
-                <div class="col-md-3">
+            <div class="row justify-content-center py-2">
+                <div class="col-md-4">
                     <form method="POST" th:action="@{/pruebas/query1}" 
                           class="was-validated">
                         <div class="card">                            
                             <div class="card-body">
                                 <div class="mb-3">
-                                    <label for="idCategoria">[[#{pruebas.idCategoria}]]</label>
+                                    <label for="precioInf">[[#{pruebas.precio.inferior}]]</label>
                                     <input type="number" class="form-control" 
-                                           th:value="${idCategoria}"
-                                           th:name="idCategoria" required="true"/>
+                                           th:value="${precioInf}"
+                                           th:name="precioInf" required="true"/>
                                 </div>
-                                
+                                <div class="mb-3">
+                                    <label for="precioSup">[[#{pruebas.precio.superior}]]</label>
+                                    <input type="number" class="form-control" 
+                                           th:value="${precioSup}"
+                                           th:name="precioSup" required="true"/>
+                                </div>
                             </div>
                             <div class="card-footer text-center">
                                 <button type="submit" class="btn btn-primary">
@@ -66,11 +70,11 @@
                         </div>
                     </form>
                 </div>
-                
             </div>
         </section>
-        
-        
-        
+
+
+
+
     </body>
 </html>

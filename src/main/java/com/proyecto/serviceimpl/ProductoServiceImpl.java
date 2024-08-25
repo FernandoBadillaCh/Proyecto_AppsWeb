@@ -3,6 +3,7 @@ package com.proyecto.serviceimpl;
 import com.proyecto.dao.ProductoDao;
 
 import com.proyecto.domain.Categoria;
+import com.proyecto.domain.Item;
 import com.proyecto.domain.Producto;
 import com.proyecto.service.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +29,8 @@ public class ProductoServiceImpl implements ProductoService {
 	}
 
 	@Override
-	public Producto getProducto(Long idProducto) {
-		return productoDao.findById(idProducto).orElse(null);
+	public Producto getProducto(Producto producto) {
+		return productoDao.findById(producto.getIdProducto()).orElse(null);
 	}
 
 	@Override
@@ -46,9 +47,10 @@ public class ProductoServiceImpl implements ProductoService {
     
     @Override
     @Transactional (readOnly = true)
-    public List<Producto> findByCategoriaIdCategoria(Long idCategoria ){
-        return productoDao.findByCategoriaIdCategoria(idCategoria);
+    public List<Producto> findByPrecioBetweenOrderByDescripcion(double precioInf, double precioSup){
+        return productoDao.findByPrecioBetweenOrderByDescripcion(precioInf, precioSup);
         
     }
+    
 
 }

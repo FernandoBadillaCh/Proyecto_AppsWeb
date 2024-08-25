@@ -48,10 +48,11 @@ public class PruebasController {
     }
     
      @PostMapping("/query1")
-    public String consultaQuery1(@RequestParam(value="idCategoria") Long idCategoria, Model model){
-        var productos = productoService.findByCategoriaIdCategoria(idCategoria);
+    public String consultaQuery1(@RequestParam(value="precioInf") double precioInf, @RequestParam(value="precioSup") double precioSup, Model model){
+        var productos = productoService.findByPrecioBetweenOrderByDescripcion(precioInf, precioSup);
         model.addAttribute("productos", productos);
-        model.addAttribute("idCategoria",idCategoria);
+        model.addAttribute("precioInf", precioInf);
+        model.addAttribute("precioSup", precioSup);
         return "/pruebas/listado2";
     }
     

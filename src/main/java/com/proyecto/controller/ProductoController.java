@@ -36,8 +36,8 @@ public class ProductoController {
 	}
 
 	@GetMapping("/{idProducto}")
-	public String detalle(@PathVariable("idProducto") Long idProducto, Model model) {
-		var producto = productoService.getProducto(idProducto);
+	public String detalle(@PathVariable("idProducto") Producto idproducto, Model model) {
+		var producto = productoService.getProducto(idproducto);
 		model.addAttribute("producto", producto);
 		return "/producto/detalle";
 	}
