@@ -1,16 +1,18 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns="http://www.w3.org/199/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
     <head th:replace="~{layout/plantilla :: head}">
         
     </head>
     <body>
-         <header th:replace="~{layout/plantilla :: header}"/>
+         <header th:replace="~{layout/plantilla :: header}"></header>
          
 
-         <section th:replace="~{pruebas/fragmentos :: categoriasTabs}"/>
-         <section th:replace="~{pruebas/fragmentos :: listadoProductos}"/>
+         <section th:replace="~{pruebas/fragmentos :: categoriasTabs}"></section>
+         <section th:replace="~{pruebas/fragmentos :: listadoProductos}"></section>
          
-         <footer th:replace="~{layout/plantilla :: footer}"/>
+         <footer th:replace="~{layout/plantilla :: footer}"></footer>
     </body>
 </html>

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 
 
 <head th:replace="~{layout/plantilla :: head}">
@@ -8,17 +9,51 @@
 
 <body>
 
-<section th:fragment="botonUsuarioModifica" class="py-4 mb-4">
+<section th:fragment="botonesModifica" class="py-4 mb-4">
 	<div class="container">
-		<div class="row">
-			<div class="col-md-3">
-				<a th:href="@{/administrarusuarios}" class="btn btn-success btn-block">
+		<div class="row justify-content-end">
+			<div class="col-md-4 mb-3">
+				<a sec:authorize="hasRole('ROLE_ADMIN')"
+				   th:href="@{/administrarusuarios}"
+				   class="btn btn-success btn-block">
 					<i class="fas fa-plus"></i> [[#{usuario.administrar}]]
 				</a>
+			</div>
+			<div class="col-md-4 mb-3">
+				<a sec:authorize="hasRole('ROLE_ADMIN')"
+				   th:href="@{/producto/administrarproductos}"
+				   class="btn btn-success btn-block">
+					<i class="fas fa-plus"></i> [[#{producto.administrar}]]
+				</a>
+			</div>
+			<div class="col-md-4 mb-3">
+				<a sec:authorize="hasRole('ROLE_ADMIN')"
+				   th:href="@{/categoria/administrarcategorias}"
+				   class="btn btn-success btn-block">
+					<i class="fas fa-plus"></i> [[#{categoria.administrar}]]
+				</a>
+			</div>
+			<div class="col-md-4 mb-3">
+				<a sec:authorize="hasRole('ROLE_ADMIN')"
+				   th:href="@{/reportes/principal}"
+				   class="btn btn-success btn-block">
+					<i class="fas fa-plus"></i>Reportes</a>
+			</div>
+			<div class="col-md-4 mb-3">
+				<a sec:authorize="hasRole('ROLE_ADMIN')"
+				   th:href="@{/reservas/listado}"
+				   class="btn btn-success btn-block">
+					<i class="fas fa-plus"></i>Administrar Reservas</a>
 			</div>
 		</div>
 	</div>
 </section>
+¿
+</body>
+</html>
+
+
+
 
 <section th:fragment="banner">
 	<div style="background-image: url('https://firebasestorage.googleapis.com/v0/b/proyectoappsweb-1ca6f.appspot.com/o/banner.jpg?alt=media&token=cc510677-d4d1-4b78-a70e-b07eb7432596'); background-size: cover; background-position: top; background-repeat: no-repeat; height: 750px; padding: 50px 0;">
@@ -115,8 +150,7 @@
 					[[#{fragmentoindex.parrafoMapa}]]
 				</p>
 				<div class="text-center ">
-					<a href="#" class="btn btn-primary m-2">[[#{fragmentoindex.botonReservacion}]]</a>
-					<a href="#" class="btn btn-primary m-2">[[#{fragmentoindex.botonContacto}]]</a>
+					<a th:href="@{/reservas/nueva}" class="btn btn-primary m-2">[[#{fragmentoindex.botonReservacion}]]</a>
 				</div>
 			</div>
 		</div>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 
 <head th:replace="~{layout/plantilla :: head}">
 </head>
@@ -13,12 +13,15 @@
 	</div>
 	<div class="container mt-5">
 		<div class="row">
-			<div th:each="usuario : ${usuariosPage.content}" class="col-12 mb-4 d-flex align-items-center">
+			<div th:each="usuario : ${usuarios}" class="col-12 mb-4 d-flex align-items-center">
 				<div class="ms-3 flex-grow-1">
 					<h5 class="text-dark" th:text="${usuario.nombre}"></h5>
+					<p><strong>Username:</strong> <span th:text="${usuario.username}"></span></p>
 					<p><strong>Teléfono:</strong> <span th:text="${usuario.telefono}"></span></p>
 					<p><strong>Dirección:</strong> <span th:text="${usuario.direccion}"></span></p>
 					<p><strong>Correo:</strong> <span th:text="${usuario.correo}"></span></p>
+					<p><strong>Rol:</strong> <span th:text="${usuario.Rol}"></span></p>
+					<p><strong>Activo:</strong> <span th:text="${usuario.activo ? 'Sí' : 'No'}"></span></p>
 				</div>
 				<div class="ml-3">
 					<button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
@@ -29,24 +32,7 @@
 		</div>
 	</div>
 	
-	<div class="d-flex justify-content-center mt-4">
-		<nav aria-label="Page navigation">
-			<ul class="pagination">
-				<li class="page-item" th:classappend="${usuariosPage.hasPrevious()} ? '' : 'disabled'">
-					<a class="page-link" th:href="@{/administrarusuarios(page=${currentPage - 1})}">Anterior</a>
-				</li>
-				<li class="page-item" th:each="i : ${#numbers.sequence(0, usuariosPage.totalPages - 1)}"
-				    th:classappend="${i == currentPage} ? 'active'">
-					<a class="page-link" th:href="@{/administrarusuarios(page=${i})}" th:text="${i + 1}">1</a>
-				</li>
-				<li class="page-item" th:classappend="${usuariosPage.hasNext()} ? '' : 'disabled'">
-					<a class="page-link" th:href="@{/administrarusuarios(page=${currentPage + 1})}">Siguiente</a>
-				</li>
-			</ul>
-		</nav>
-	</div>
-	
-	<div th:each="usuario : ${usuariosPage.content}" class="modal fade"
+	<div th:each="usuario : ${usuarios}" class="modal fade"
 	     th:id="'editarUsuarioModal-' + ${usuario.idUsuario}" tabindex="-1"
 	     aria-labelledby="editarUsuarioModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-md">
@@ -55,10 +41,14 @@
 					<h5 class="modal-title" id="editarUsuarioModalLabel">Editar Usuario</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
-				<form th:action="@{/modifica}" method="POST" class="was-validated">
+				<form th:action="@{/usuario/modificar}" method="POST" class="was-validated">
 					<input type="hidden" name="idUsuario" th:value="${usuario.idUsuario}"/>
 					<input type="hidden" name="clave" th:value="${usuario.clave}"/>
 					<div class="modal-body">
+						<div class="mb-3">
+							<label for="username">Username</label>
+							<input type="text" class="form-control" id="username" name="username" th:value="${usuario.username}" required="true"/>
+						</div>
 						<div class="mb-3">
 							<label for="nombre">Nombre</label>
 							<input type="text" class="form-control" id="nombre" name="nombre" th:value="${usuario.nombre}" required="true"/>
@@ -68,7 +58,7 @@
 							<input type="email" class="form-control" id="correo" name="correo" th:value="${usuario.correo}" required="true"/>
 						</div>
 						<div class="mb-3">
-							<label for="telefono">Telefono</label>
+							<label for="telefono">Teléfono</label>
 							<input type="text" class="form-control" id="telefono" name="telefono" th:value="${usuario.telefono}" required="true"/>
 						</div>
 						<div class="mb-3">
@@ -76,12 +66,19 @@
 							<input type="text" class="form-control" id="direccion" name="direccion" th:value="${usuario.direccion}" required="true"/>
 						</div>
 						<div class="mb-3">
-							<label for="idRol">Rol</label>
-							<select name="idRol" class="form-select" aria-label="Default select example">
-								<option th:each="rol : ${roles}" th:value="${rol.idRol}" th:text="${rol.nombre}" th:selected="${rol.idRol == usuario.rol.idRol}"></option>
+							<label for="Rol">Rol</label>
+							<select name="Rol" class="form-select" aria-label="Rol">
+								<option value="ROLE_ADMIN" th:selected="${usuario.Rol == 'ROLE_ADMIN'}">ROLE_ADMIN</option>
+								<option value="ROLE_USER" th:selected="${usuario.Rol == 'ROLE_USER'}">ROLE_USER</option>
 							</select>
 						</div>
-					
+						<div class="mb-3">
+							<label for="activo">Activo</label>
+							<select name="activo" class="form-select" aria-label="Activo">
+								<option value="true" th:selected="${usuario.activo}">Sí</option>
+								<option value="false" th:selected="${!usuario.activo}">No</option>
+							</select>
+						</div>
 					</div>
 					<div class="modal-footer">
 						<button type="submit" class="btn btn-success">Guardar</button>
@@ -92,8 +89,6 @@
 	</div>
 </section>
 
-
-
 </body>
-
 </html>
+

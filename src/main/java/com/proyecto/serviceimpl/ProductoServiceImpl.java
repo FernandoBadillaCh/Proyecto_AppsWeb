@@ -51,6 +51,6 @@ public class ProductoServiceImpl implements ProductoService {
         return productoDao.findByPrecioBetweenOrderByDescripcion(precioInf, precioSup);
         
     }
-    
+
 
 }

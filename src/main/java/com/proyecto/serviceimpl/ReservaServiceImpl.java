@@ -27,4 +27,9 @@ public class ReservaServiceImpl implements ReservaService {
 	public List<Reserva> obtenerReservas() {
 		return reservaDao.findAll();
 	}
+
+	@Override
+	public void eliminarReserva(Long idReserva) {
+		reservaDao.deleteById(idReserva);
+	}
 }

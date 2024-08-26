@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 
 <head th:replace="~{layout/plantilla :: head}">
 
@@ -11,7 +12,7 @@
 <header th:replace="~{layout/plantilla :: header}"></header>
 
 
-<section th:replace="~{index/fragmentoIndex :: botonUsuarioModifica}"></section>
+<section th:replace="~{index/fragmentoIndex :: botonesModifica}"></section>
 
 <section th:replace="~{index/fragmentoIndex :: banner}"></section>
 

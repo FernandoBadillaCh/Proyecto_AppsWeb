@@ -1,9 +1,7 @@
 package com.proyecto.serviceimpl;
 
 import com.proyecto.dao.UsuarioDao;
-import com.proyecto.domain.Rol;
 import com.proyecto.domain.Usuario;
-import com.proyecto.service.RolService;
 import com.proyecto.service.UsuarioDetailsService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
@@ -16,9 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 @Service
 public class UsuarioDetailsServiceImpl implements UsuarioDetailsService, UserDetailsService {
@@ -28,9 +24,6 @@ public class UsuarioDetailsServiceImpl implements UsuarioDetailsService, UserDet
 
 	@Autowired
 	private HttpSession session;
-
-	@Autowired
-	private RolService rolService;
 
 	@Override
 	@Transactional
@@ -43,11 +36,10 @@ public class UsuarioDetailsServiceImpl implements UsuarioDetailsService, UserDet
 			throw new UsernameNotFoundException("Usuario no encontrado: " + username);
 		}
 
-		// Se recupera el rol del usuario (asumiendo que tiene solo uno)
-		Rol rol = usuario.getRol(); // Asumiendo que solo tiene un rol
-
+		// Se obtiene el rol del usuario
+		String rol = usuario.getRol();
 		// Se convierte el rol en un GrantedAuthority
-		GrantedAuthority authority = new SimpleGrantedAuthority(rol.getNombre());
+		GrantedAuthority authority = new SimpleGrantedAuthority(rol);
 
 		// Se retorna un User (de tipo UserDetails) con el rol asociado
 		return new User(usuario.getUsername(), usuario.getClave(), Collections.singleton(authority));

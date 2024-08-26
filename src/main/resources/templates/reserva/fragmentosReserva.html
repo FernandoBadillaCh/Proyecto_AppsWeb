@@ -1,4 +1,7 @@
-<html>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <body>
 
 <section th:fragment="crearReserva">
@@ -12,7 +15,6 @@
 					
 					<div class="card-body">
 						<form th:action="@{/reservas/guardar}" method="post">
-
 							<div class="form-group mb-3">
 								<label for="nombreUsuario" class="form-label">Nombre:</label>
 								<input type="text" class="form-control" id="nombreUsuario" th:value="${usuario.nombre}" readonly>
@@ -39,7 +41,6 @@
 								<input type="time" class="form-control" id="hora" name="hora" required>
 							</div>
 							
-
 							<input type="hidden" name="usuario.idUsuario" th:value="${usuario.idUsuario}" />
 							
 							<button type="submit" class="btn btn-primary w-100">Enviar Reserva</button>
@@ -51,7 +52,87 @@
 	</div>
 </section>
 
-
+<section th:fragment="listaReservaciones">
+	<div class="container pt-5">
+		<h2 class="text-center mb-5 text-black bold">Listado de Reservaciones</h2>
+	</div>
+	
+	<div class="container mt-5">
+		<div th:each="reserva : ${reservas}">
+			<div class="bg-opacity-75 bg-black">
+				<h3 class="text-start text-white mb-4" th:text="'Reserva ID: ' + ${reserva.idReserva}"></h3>
+			</div>
+			<div class="row">
+				<div class="col-12 mb-4 d-flex align-items-center">
+					<!-- Información de la Reserva -->
+					<div class="ms-5 flex-grow-1 col-7">
+						<h5 class="text-dark" th:text="'Nombre: ' + ${reserva.usuario.nombre}"></h5>
+						<p th:text="'Teléfono: ' + ${reserva.usuario.telefono}"></p>
+						<p th:text="'Mesa: ' + ${reserva.mesa.nombre}"></p>
+						<p th:text="'Fecha: ' + ${reserva.fecha}"></p>
+						<p th:text="'Hora: ' + ${reserva.hora}"></p>
+					</div>
+					
+					<!-- Botones de Acción -->
+					<div class="ml-3 align-content-end">
+						<button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
+						        th:data-bs-target="'#editarReservaModal-' + ${reserva.idReserva}">Modificar
+						</button>
+						<a th:href="@{/reservas/eliminar/{idReserva}(idReserva=${reserva.idReserva})}" class="btn btn-danger btn-sm">
+							Eliminar
+						</a>
+					</div>
+				</div>
+			</div>
+			
+			<!-- Modal de Edición de Reserva -->
+			<div class="modal fade" th:id="'editarReservaModal-' + ${reserva.idReserva}" tabindex="-1" aria-labelledby="editarReservaModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-md">
+					<div class="modal-content">
+						<div class="modal-header bg-success text-white">
+							<h5 class="modal-title" id="editarReservaModalLabel">Editar Reserva</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<form th:action="@{/reservas/actualizar}" method="POST">
+							<input type="hidden" name="idReserva" th:value="${reserva.idReserva}"/>
+							<div class="modal-body">
+								<div class="mb-3">
+									<label for="usuario">Usuario</label>
+									<input type="text" class="form-control" id="usuario" name="usuario" th:value="${reserva.usuario.nombre}" readonly/>
+								</div>
+								<div class="mb-3">
+									<label for="telefonoUsuario">Teléfono del Usuario</label>
+									<input type="text" class="form-control" id="telefonoUsuario" name="telefonoUsuario" th:value="${reserva.usuario.telefono}" readonly/>
+								</div>
+								<div class="mb-3">
+									<label for="mesa">Mesa</label>
+									<select class="form-select" id="mesa" name="mesa.idMesa" required>
+										<option th:each="mesa : ${mesas}"
+										        th:value="${mesa.idMesa}"
+										        th:text="${mesa.nombre}"
+										        th:selected="${mesa.idMesa == reserva.mesa.idMesa}">Mesa</option>
+									</select>
+								</div>
+								<div class="mb-3">
+									<label for="fecha">Fecha</label>
+									<input type="date" class="form-control" id="fecha" name="fecha" th:value="${#dates.format(reserva.fecha, 'yyyy-MM-dd')}" required/>
+								</div>
+								<div class="mb-3">
+									<label for="hora">Hora</label>
+									<input type="time" class="form-control" id="hora" name="hora" th:value="${reserva.hora}" required/>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="submit" class="btn btn-success">Guardar Cambios</button>
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
 
 </body>
 </html>

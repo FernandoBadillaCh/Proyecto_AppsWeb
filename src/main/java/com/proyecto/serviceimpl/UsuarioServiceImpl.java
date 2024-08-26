@@ -1,11 +1,8 @@
 package com.proyecto.serviceimpl;
 
-import com.proyecto.dao.RolDao;
 import com.proyecto.dao.UsuarioDao;
-import com.proyecto.dao.UsuarioDaoPageable;
 import com.proyecto.domain.Rol;
 import com.proyecto.domain.Usuario;
-import com.proyecto.service.RolService;
 import com.proyecto.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,9 +15,6 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	@Autowired
 	private UsuarioDao usuarioDao;
-
-	@Autowired
-	private UsuarioDaoPageable usuarioRepository;
 
 	@Override
 	@Transactional(readOnly=true)
@@ -46,12 +40,6 @@ public class UsuarioServiceImpl implements UsuarioService {
 		usuarioDao.save(usuario);
 	}
 
-
-	@Autowired
-	private RolDao rolDao;
-
-	@Autowired
-	private RolService rolService;
 
 	@Override
 	@jakarta.transaction.Transactional()
@@ -81,11 +69,10 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Override
 	@jakarta.transaction.Transactional
 	public void save(Usuario usuario, boolean crearRolUser) {
-		usuario=usuarioDao.save(usuario);
-		if (crearRolUser) { //Si se está creando el usuario, se crea el rol por defecto "USER"
-			Rol rol = rolService.findById(2L); //USER
-			usuario.setRol(rol);
+		if (crearRolUser) {
+			usuario.setRol(Rol.ROLE_USER.name());
 		}
+		usuario=usuarioDao.save(usuario);
 	}
 
 

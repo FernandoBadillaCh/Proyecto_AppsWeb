@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
     <body>
         <!-- 1 Sección principal para mostrar la informaccion de las categorias -->
         <section th:fragment="categoriasTabs" id="categorias">
@@ -22,59 +23,63 @@
         </section>
 
         <!-- 2 Sección principal para mostrar la informaccion de la entidad producto -->
-        <section th:fragment="listadoProductos" id="productos">
-            <div class="row row-cols-4">
-                <div class="card" th:each="p : ${productos}">
-                    <figure><img th:src="${p.rutaImagen}" 
-                                 class="card-img-top" alt="..."
-                                 height="200"/>
-                        <figcaption>[[${p.precio}]]
-                        </figcaption>
-                    </figure>
-                    <div class="card-header">
-                        <h4 class="card-title">[[${p.descripcion}]]</h4>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text">[[${p.nombre}]]</p>                    
-                    </div>
-                </div>
-            </div>
+        <section th:fragment="listadoProductos" id="productos" class="py-4">
+	        <div class="container">
+		        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+			        <div class="col" th:each="p : ${productos}">
+				        <div class="card h-100">
+					        <figure class="card-img-top">
+						        <img th:src="${p.rutaImagen}" class="img-fluid" alt="Imagen del producto" style="height: 200px; object-fit: cover;"/>
+						        <figcaption class="text-center mt-2">
+							        <span class="fw-bold">[[${p.precio}]]</span>
+						        </figcaption>
+					        </figure>
+					        <div class="card-body text-center">
+						        <h4 class="card-title">[[${p.descripcion}]]</h4>
+						        <p class="card-text">[[${p.nombre}]]</p>
+					        </div>
+				        </div>
+			        </div>
+		        </div>
+	        </div>
         </section>
-
+        
+        
         <!-- 3 Sección para crear los filtros -->
-        <section th:fragment="filtros" class="bg-light">
-            <div class="row justify-content-center py-2">
-                <div class="col-md-4">
-                    <form method="POST" th:action="@{/pruebas/query1}" 
-                          class="was-validated">
-                        <div class="card">                            
-                            <div class="card-body">
-                                <div class="mb-3">
-                                    <label for="precioInf">[[#{pruebas.precio.inferior}]]</label>
-                                    <input type="number" class="form-control" 
-                                           th:value="${precioInf}"
-                                           th:name="precioInf" required="true"/>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="precioSup">[[#{pruebas.precio.superior}]]</label>
-                                    <input type="number" class="form-control" 
-                                           th:value="${precioSup}"
-                                           th:name="precioSup" required="true"/>
-                                </div>
-                            </div>
-                            <div class="card-footer text-center">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fas fa-check"></i> [[#{pruebas.ampliadas}]]
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+        <!-- archivo: fragmentos.html -->
+        <section th:fragment="filtros" class="bg-light py-4">
+	        <div class="container">
+		        <div class="row justify-content-center">
+			        <div class="col-md-8 col-lg-6">
+				        <form method="POST" th:action="@{/pruebas/query1}" class="was-validated">
+					        <div class="card">
+						        <div class="card-body">
+							        <div class="mb-3">
+								        <label for="precioInf" class="form-label">[[#{pruebas.precio.inferior}]]</label>
+								        <input type="number" id="precioInf" class="form-control"
+								               th:value="${precioInf}" th:name="precioInf" required/>
+							        </div>
+							        <div class="mb-3">
+								        <label for="precioSup" class="form-label">[[#{pruebas.precio.superior}]]</label>
+								        <input type="number" id="precioSup" class="form-control"
+								               th:value="${precioSup}" th:name="precioSup" required/>
+							        </div>
+						        </div>
+						        <div class="card-footer text-center">
+							        <button type="submit" class="btn btn-primary">
+								        <i class="fas fa-check me-2"></i> [[#{pruebas.ampliadas}]]
+							        </button>
+						        </div>
+					        </div>
+				        </form>
+			        </div>
+		        </div>
+	        </div>
         </section>
-
-
-
-
+    
+    
+    
+    
+    
     </body>
 </html>

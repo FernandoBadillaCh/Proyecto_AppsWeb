@@ -20,4 +20,5 @@ public interface ReservaService {
 	public List<Reserva> obtenerReservas();
 
 
+	void eliminarReserva(Long idReserva);
 }

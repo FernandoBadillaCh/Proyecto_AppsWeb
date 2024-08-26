@@ -2,64 +2,95 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:sec="http://thymeleaf.org/extras/spring-security">
-    <head th:replace="~{layout/plantilla :: head}">
-        <title>EntreAmigos</title>        
-    </head>
-    <body>
-        <header th:replace="~{layout/plantilla :: header}"/>
-        <div class="container d-flex flex-column align-items-center">
-            <div class="row mb-3">
-                <a th:href="@{/}" class="btn btn-primary">
-                    <i class='fas fa-reply'></i> [[#{accion.regresar}]]</a>
-            </div>
-            
-            <div class="row row-cols-1 row-cols-md-3 g-4">
-                <div class="col">
-                    <div class="card h-100 text-center">
-                        <div class="card-header">
-                            Reporte Clientes
-                        </div>
-                        <div class="card-body">
-                            <a th:href="@{/reportes/usuarios?tipo=vPdf}" class="btn btn-primary">
-                                <i class='fas fa-eye'></i><i class='fas fa-file-pdf'></i>
-                            </a>
-                            <a th:href="@{/reportes/usuarios?tipo=Pdf}" class="btn btn-success">
-                                <i class='fas fa-download'></i><i class='fas fa-file-pdf'></i>
-                            </a>
-                            <a th:href="@{/reportes/usuarios?tipo=Xls}" class="btn btn-warning">
-                                <i class='fas fa-download'></i><i class='fas fa-file-excel'></i>
-                            </a>
-                            <a th:href="@{/reportes/usuarios?tipo=Csv}" class="btn btn-danger">
-                                <i class='fas fa-download'></i><i class='fas fa-file-csv'></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col">
-                    <div class="card h-100 text-center">
-                        <div class="card-header">
-                            Reporte Ventas
-                        </div>
-                        <div class="card-body">
-                            <a th:href="@{/reportes/ventas?tipo=vPdf}" class="btn btn-primary">
-                                <i class='fas fa-eye'></i><i class='fas fa-file-pdf'></i>
-                            </a>
-                            <a th:href="@{/reportes/ventas?tipo=Pdf}" class="btn btn-success">
-                                <i class='fas fa-download'></i><i class='fas fa-file-pdf'></i>
-                            </a>
-                            <a th:href="@{/reportes/ventas?tipo=Xls}" class="btn btn-warning">
-                                <i class='fas fa-download'></i><i class='fas fa-file-excel'></i>
-                            </a>
-                            <a th:href="@{/reportes/ventas?tipo=Csv}" class="btn btn-danger">
-                                <i class='fas fa-download'></i><i class='fas fa-file-csv'></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>              
-            </div>
-        </div>
 
-        <footer th:replace="~{layout/plantilla :: footer}"/>         
-    </body>
+<head th:replace="~{layout/plantilla :: head}">
+	<title>Parrillada Argentina EL Che</title>
+	<style>
+		/* Custom styles for card size and layout */
+		.custom-card-body {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			height: 100%;
+		}
+		
+		.card {
+			width: 100%;
+			height: 300px; /* Adjust the height as needed */
+		}
+		
+		.card-header {
+			font-size: 1.5rem; /* Adjust the font size as needed */
+		}
+		
+		.btn {
+			margin: 5px; /* Adjust spacing between buttons */
+			font-size: 1.2rem; /* Adjust font size of buttons */
+			padding: 10px 20px; /* Adjust padding for buttons */
+		}
+		
+		.container {
+			margin-top: 20px;
+		}
+	</style>
+</head>
+
+<body>
+<header th:replace="~{layout/plantilla :: header}"></header>
+
+<div class="container d-flex flex-column align-items-center">
+
+	<div class="row row-cols-1 row-cols-md-2 g-4">
+		<!-- Clientes Report Card -->
+		<div class="col d-flex justify-content-center">
+			<div class="card h-100 text-center">
+				<div class="card-header">
+					Reporte Clientes
+				</div>
+				<div class="card-body custom-card-body">
+					<a th:href="@{/reportes/usuarios?tipo=vPdf}" class="btn btn-primary">
+						<i class="fas fa-eye"></i><i class="fas fa-file-pdf"></i>
+					</a>
+					<a th:href="@{/reportes/usuarios?tipo=Pdf}" class="btn btn-success">
+						<i class="fas fa-download"></i><i class="fas fa-file-pdf"></i>
+					</a>
+					<a th:href="@{/reportes/usuarios?tipo=Xls}" class="btn btn-warning">
+						<i class="fas fa-download"></i><i class="fas fa-file-excel"></i>
+					</a>
+					<a th:href="@{/reportes/usuarios?tipo=Csv}" class="btn btn-danger">
+						<i class="fas fa-download"></i><i class="fas fa-file-csv"></i>
+					</a>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Ventas Report Card -->
+		<div class="col d-flex justify-content-center">
+			<div class="card h-100 text-center">
+				<div class="card-header">
+					Reporte Ventas
+				</div>
+				<div class="card-body custom-card-body">
+					<a th:href="@{/reportes/ventas?tipo=vPdf}" class="btn btn-primary">
+						<i class="fas fa-eye"></i><i class="fas fa-file-pdf"></i>
+					</a>
+					<a th:href="@{/reportes/ventas?tipo=Pdf}" class="btn btn-success">
+						<i class="fas fa-download"></i><i class="fas fa-file-pdf"></i>
+					</a>
+					<a th:href="@{/reportes/ventas?tipo=Xls}" class="btn btn-warning">
+						<i class="fas fa-download"></i><i class="fas fa-file-excel"></i>
+					</a>
+					<a th:href="@{/reportes/ventas?tipo=Csv}" class="btn btn-danger">
+						<i class="fas fa-download"></i><i class="fas fa-file-csv"></i>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<footer th:replace="~{layout/plantilla :: footer}"></footer>
+</body>
+
 </html>

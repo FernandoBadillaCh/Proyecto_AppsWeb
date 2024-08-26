@@ -2,14 +2,23 @@ package com.proyecto.controller;
 
 import com.proyecto.domain.Item;
 import com.proyecto.domain.Producto;
+import com.proyecto.domain.Usuario;
+import com.proyecto.service.CategoriaService;
 import com.proyecto.service.ItemService;
 import com.proyecto.service.ProductoService;
+import com.proyecto.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+
+import java.security.Principal;
 
 @Controller
 public class CarritoController {
@@ -18,12 +27,24 @@ public class CarritoController {
     @Autowired
     private ProductoService productoService;
 
+    @Autowired
+	private CategoriaService categoriaService;
+    @Autowired
+	private UsuarioService usuarioService;
+
+
+
     @GetMapping("/")
-    private String listado(Model model) {
+    private String listado(Model model, @AuthenticationPrincipal Authentication authentication) {
+
+        var categorias = categoriaService.getCategorias();
         var productos = productoService.getProductos();
+        model.addAttribute("categorias", categorias);
         model.addAttribute("productos", productos);
-        return "/index";
+
+        return "index";
     }
+
 //Para ver el carrito
 
     @GetMapping("/carrito/listado")
@@ -43,7 +64,7 @@ public class CarritoController {
     @GetMapping("/carrito/agregar/{idProducto}")
     public ModelAndView agregarItem(Model model, Item item) {
         Item item2 = itemService.get(item);
-        
+
         if (item2 == null) {
             Producto producto = productoService.getProducto(item);
             item2 = new Item(producto);
@@ -61,10 +82,9 @@ public class CarritoController {
         model.addAttribute("listaTotal", totalCarritos);
         model.addAttribute("carritoTotal", carritoTotalVenta);
 
-        return new ModelAndView("/carrito/fragmentos :: verCarrito");
+        return new ModelAndView("redirect:/producto/listado");
     }
     //Para mofificar un producto del carrito
-
     @GetMapping("/carrito/modificar/{idProducto}")
     public String modificarItem(Item item, Model model) {
         item = itemService.get(item);
@@ -84,13 +104,5 @@ public class CarritoController {
     public String guardarItem(Item item) {
         itemService.actualiza(item);
         return "redirect:/carrito/listado";
-
-    }
-
-    //Para facturar los productos del carrito... no implementado...
-    @GetMapping("/facturar/carrito")
-    public String facturarCarrito() {
-        itemService.facturar();
-        return "redirect:/";
     }
 }

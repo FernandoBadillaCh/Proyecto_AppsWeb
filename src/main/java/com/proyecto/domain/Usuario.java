@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 @Data
 @Entity
-@Table(name="Usuarios")
+@Table(name = "Usuarios")
 @NoArgsConstructor
 public class Usuario implements Serializable {
 
@@ -15,8 +15,9 @@ public class Usuario implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id_usuario")
+	@Column(name = "id_usuario")
 	private Long idUsuario;
+
 	private String username;
 	private String nombre;
 	private String correo;
@@ -24,14 +25,10 @@ public class Usuario implements Serializable {
 	private String direccion;
 	private String telefono;
 	private boolean activo;
+	private String Rol;
 
-	@ManyToOne
-	@JoinColumn(name = "id_rol")
-	private Rol rol;
 
 	public Usuario(String username) {
 		this.username = username;
 	}
-
-
 }

@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -54,7 +55,7 @@ public class ProjectConfig implements WebMvcConfigurer {
 		return messageSource;
 	}
 
-	/* Los siguiente métodos son para implementar el tema de seguridad dentro del proyecto */
+	/* Los siguientes métodos son para implementar el tema de seguridad dentro del proyecto */
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/").setViewName("index");
@@ -67,19 +68,36 @@ public class ProjectConfig implements WebMvcConfigurer {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
 				.authorizeHttpRequests((request) -> request
-						.requestMatchers("/","/index","/errores/**",
-								"/carrito/**","/pruebas/**","/reportes/**",
-								"/registro/**","/js/**","/webjars/**"
-								,"/categoria/**"
-								,"/producto/**"
-								,"/registro/**"
-								,"/reservas/**")
-						.permitAll().requestMatchers("/reservas/**","/reservas/nueva","/reservas/guardar" ).authenticated()
-				).formLogin((form) -> form
-						.loginPage("/login").permitAll())
-				.logout((logout) -> logout.permitAll());
+						// Endpoints permitidos para todos
+						.requestMatchers(
+								"/", "/index", "/errores/**",
+								"/carrito/**", "/pruebas/**", "/reportes/**",
+								"/registro/**", "/js/**", "/webjars/**",
+								"/categoria/**", "/producto/**", "/reservas/**",
+								"pruebas/listado/**","/reportes/**"
+						).permitAll()
+
+						// Endpoints que requieren autenticación
+						.requestMatchers(
+								"/reservas/**", "/reservas/nueva", "/reservas/guardar"
+						).authenticated()
+
+						// Endpoints restringidos a usuarios con rol ADMIN
+						.requestMatchers(
+								"/producto/administrarproductos", "/producto/eliminar/**", "/producto/guardar",
+								"/categoria/administrarcategorias", "/categoria/eliminar/**", "/categoria/guardar",
+								"/administrarusuarios", "/modifica","/usuario/modificar/**","/usuario/eliminar/**",
+								"/reportes/**","/reservas/listado", "/reservas/eliminar/**", "/reservas/editar/**", "/reservas/actualizar"
+						).hasRole("ADMIN")
+				)
+				.formLogin((form) -> form
+						.loginPage("/login").permitAll()
+				)
+				.logout(LogoutConfigurer::permitAll);
+
 		return http.build();
 	}
+
 
 	@Autowired
 	private UserDetailsService userDetailsService;
