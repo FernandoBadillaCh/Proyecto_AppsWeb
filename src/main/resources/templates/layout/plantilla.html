@@ -28,11 +28,10 @@
 			    
 			    <!-- Navegación Principal -->
 			    <nav class="col-5 col-md-5 d-flex flex-column flex-md-row align-items-center justify-content-center mt-5 mt-md-0">
-				    <a class="d-block px-2 py-1 fs-6 fw-bold text-uppercase text-black text-decoration-none text-center" href="#">[[#{plantilla.nosotros}]]</a>
+				    <a class="d-block px-2 py-1 fs-6 fw-bold text-uppercase text-black text-decoration-none text-center" th:href="@{/nosotros/historia}">[[#{plantilla.nosotros}]]</a>
 				    <a class="d-block px-2 py-1 fs-6 fw-bold text-uppercase text-black text-decoration-none text-center" th:href="@{/producto/listado}">[[#{plantilla.productos}]]</a>
 				    <a class="d-block px-2 py-1 fs-6 fw-bold text-uppercase text-black text-decoration-none text-center" th:href="@{/categoria/listado}">[[#{plantilla.categorias}]]</a>
-				    <a class="d-block px-2 py-1 fs-6 fw-bold text-uppercase text-black text-decoration-none text-center"				       th:href="@{/reservas/nueva}"
-				       sec:authorize="isAuthenticated()">Reservacion</a>
+				    <a class="d-block px-2 py-1 fs-6 fw-bold text-uppercase text-black text-decoration-none text-center" th:href="@{/reservas/nueva}">Reservacion</a>
 				    <a class="d-block px-2 py-1 ms-4 fs-6 fas fa-shopping-cart me-2 text-dark " th:href="@{/carrito/listado}"></a>
 			    </nav>
 			    

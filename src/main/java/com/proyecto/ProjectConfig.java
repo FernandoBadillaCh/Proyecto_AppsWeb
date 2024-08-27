@@ -74,7 +74,7 @@ public class ProjectConfig implements WebMvcConfigurer {
 								"/carrito/**", "/pruebas/**", "/reportes/**",
 								"/registro/**", "/js/**", "/webjars/**",
 								"/categoria/**", "/producto/**", "/reservas/**",
-								"pruebas/listado/**","/reportes/**"
+								"pruebas/listado/**","/reportes/**", "/nosotros/historia"
 						).permitAll()
 
 						// Endpoints que requieren autenticación
